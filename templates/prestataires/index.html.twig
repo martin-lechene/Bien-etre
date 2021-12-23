@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prestataires index{% endblock %}
+
+{% block body %}
+    <h1>Prestataires index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Website</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prestataire in prestataires %}
+            <tr>
+                <td>{{ prestataire.id }}</td>
+                <td>{{ prestataire.name }}</td>
+                <td>{{ prestataire.website }}</td>
+                <td>
+                    <a class='btn btn-outline-info'href="{{ path('prestataires_show', {'id': prestataire.id}) }}">show</a>
+                    <a class='btn btn-outline-primary' href="{{ path('prestataires_edit', {'id': prestataire.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class='btn btn-outline-success' href="{{ path('prestataires_new') }}">Create new</a>
+{% endblock %}

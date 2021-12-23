@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage | Bien-être{% endblock %}
+
+{% block body %}
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    {% for categorie in categories %}
+        {% if categorie.id == 1 %}
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="https://picsum.photos/id/{{ categorie.id}}/1920/1080" alt="{{ categorie.name}}">
+          <p class='text-center text-white bg-dark p-2'><a class='nav-link text-muted' href='categories/{{ categorie.id}}'>{{ categorie.name|upper}}</a></p>
+        </div>
+        {% endif  %}
+        {% if categorie.id > 1 %}
+        <div class="carousel-item">
+          <img class="d-block w-100" src="https://picsum.photos/id/{{ categorie.id}}/1920/1080" alt="{{ categorie.name}}">
+        <p class='text-center text-white bg-dark p-2'><a class='nav-link text-muted' href='categories/{{ categorie.id}}'>{{ categorie.name|upper}}</a></p>
+        </div>
+        {% endif  %}
+    {% else %}
+    {% endfor %}
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<div class='card'>
+  <h2 class='text-center'>Recommandation</h2>
+  <div class="card-deck">
+    <div class="card">
+    <img class="card-img-top" src="https://picsum.photos/1920/1080" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+    </div>
+    <div class="card">
+    <img class="card-img-top" src="https://picsum.photos/1920/1080" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+    
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+    </div>
+    <div class="card">
+    <img class="card-img-top" src="https://picsum.photos/1920/1080" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+    
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+    </div>
+    <div class="card">
+    <img class="card-img-top" src="https://picsum.photos/1920/1080" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+    
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+    </div>
+    </div>
+    
+</div>
+<nav aria-label="pagination-exemple p-2">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+
+<div class='card'>
+
+<table class="table-dark table-hover">
+                       <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Name</th>
+                            <th>Url Website</th>
+                            <th>Number phone</th>
+                            <th>Number TVA</th>
+                            <th>Desc Short</th>
+                            <th>Desc Long</th>
+                            <th>DateTime Create</th>
+                        </tr>
+                       </thead>
+                       <tbody>
+                         
+                        {% for prestataire in prestataires %}
+                            <tr>
+                                    <td>{{ prestataire.id }}</td>
+                                    <td>{{ prestataire.name }}</td>
+                                    <td>{{ prestataire.website }}</td>
+                                    <td>{{ prestataire.number_phone }}</td>
+                                    <td>{{ prestataire.number_tva }}</td>
+                                    <td>{{ prestataire.descshort }}</td>
+                                    <td>{{ prestataire.desclong }}</td>
+                            </tr>
+                        {% else %}
+                        {% endfor %}   
+                             
+                        </tbody>
+                             
+                        </table>
+</div>
+
+
+{% endblock %}
