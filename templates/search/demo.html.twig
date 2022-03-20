@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block title %} Rechercher un prestataire{% endblock %}
+{% block body %}
+
+<h3 class='text-center text-white p-2'>Rechercher </h3>
+<section class="search-sec">
+    <div class="container">
+        <form action="#" method="post" novalidate="novalidate" class='row'>
+            <div class="input-group mb-2 p-1 col-4">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class='fas fa-user'></i></div>
+                </div>
+                <input type="text p-1" class="form-control search-slt" placeholder="Nom d'un prestataire">
+            </div>
+            <div class="input-group mb-2 p-1 col-4">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class='fas fa-city'></i></div>
+                </div>
+                <input type="text p-1" class="form-control search-slt" placeholder="Nom d'une ville">
+            </div>
+            <div class="input-group mb-2 p-1 col-4">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class='fas fa-flag'></i></div>
+                </div>
+                <input type="text p-1" class="form-control search-slt" placeholder="Nom d'un pays">
+            </div>
+                             <div class="input-group mb-2 p-1">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class='fas fa-list'></i>
+                                </div>
+                            </div>
+                            <select class="form-control search-slt p-1" id="exampleFormControlSelect1">
+                                <option>Sélectionner une categorie</option>
+                                {% for category in categorys %}
+                                    <option>{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                        </div>
+                        <div class="text-center p-1">
+                            <a href='search' class="btn btn-outline-info text-info"><i class='fas fa-search'></i> Rechercher</a>
+                        </div>
+                    </div>
+                <div class='p-5 row'>
+                    {% for prestataire in prestataires %}
+                    <div class='col-4 mb-4'>
+                        <div class="card text-center">
+                            <img class="card-img-top" src="{{prestataire.urlLogo}}" alt="Desc img providers">
+                            <div class="card-body">
+                                <h5 class="card-title"><a class="text-info" href='prestataires/{{ prestataire.id }}'>{{ prestataire.name }}</a></h5>
+                                <p class="card-text text-white text-muted">{{ prestataire.descShort }}</p>
+                                <a href="prestataires/{{ prestataire.id }}" class="btn btn-info">Voir</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Contact{% endblock %}
+{% block body %}
+    <h3 class='text-center text-info bg-white p-2'>Contact</h3>
+<div class='container text-light'>
+    <div class='bg-dark'><div class="container">
+
+    <form class="well form-horizontal" action="send_email_by_contact.php" method="post"  id="contact_form">
+      <!-- Text input-->
+
+      <div class="form-group">
+        <div class="col-md-12 inputGroupContainer">
+        <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input  name="first_name" placeholder="Nom Prénom" class="form-control"  type="text">
+          </div>
+          <div class="col-md-12 inputGroupContainer">
+          <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input name="email" placeholder="E-Mail" class="form-control"  type="text">
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Text input-->
+            <div class="form-group">
+        <label class="col-md-12 control-label">Sujet</label>  
+          <div class="col-md-12 inputGroupContainer">
+          <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input name="email" placeholder="Votre sujet" class="form-control"  type="text">
+          </div>
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+  <label class="col-md-12 control-label">Message</label>  
+    <div class="col-md-12 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-text"></i></span>
+  <textarea name="description" placeholder="Votre text" class="form-control"  type="text"></textarea>
+    </div>
+  </div>
+</div>
+<div class='text-center p-4'>
+  <a action="send_email_by_contact.php" class='text-center btn btn-primary'>Envoyer</a>
+</div>
+</form>
+{% endblock %}

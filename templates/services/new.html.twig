@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crée une nouvelles catégories de services{% endblock %}
+
+{% block body %}
+    <h3 class='text-center text-info bg-white p-2'>Crée une catégories de services</h1>
+
+    {{ include('services/_form.html.twig') }}
+    
+    <a class='btn btn-lg text-white' href="{{ path('services_index') }}"><i class="fas fa-arrow-alt-circle-left"></i></a>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %} Home {% endblock %}
+{% block body %}
+     <h3 class='text-center text-info bg-white p-2'>L'un de nos meilleurs </h3>
+<div class='container'> 
+    <div class='row p-1'>
+        {% for service in services %}
+            {% if service.isVisibleHomepage %}
+                <div class='col-12  '>
+                    <div class="card text-center">
+                        <img class="card-img-top" src="{{ service.img }}" alt="Desc img providers">
+                        <a href="services/{{ service.id }}/show" class="m-1 btn btn-info">Voir le service</a>
+                    </div>
+                </div>
+            {% endif %}
+                {% endfor %}       
+    </div></h3>
+</div>
+{#<div class='container text-light'>
+    <h4 class='p-1'>// Les prestataires en avant {# { 'Prestataires mis en avant' | trans }  }</h4>
+    <div class='row'>
+        {#
+        Boucle pour récupérer prestataires.name/description/id
+        }
+            {% for prestataire in prestataires %}
+                {% if prestataire.ispublic  == 1 %}
+                    <div class='col-md-12 col-12'>
+                        <div class='bg-light'>
+                            <img class="d-block" src="http://picsum.photos/id/44{{prestataire.id}}/400/400" alt="{{prestataire.id}}">
+                            <h6 class='p-1 text-center text-dark'>{{prestataire.name}}</h6>
+
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+    </div>
+</div>#}
+    <div class='row m-1'>
+        {% for prestataire in prestataires %}
+            <div class='p-1 col-3'>
+                <div class='bg-light p-1'>
+                    <img class="d-block card-img" src="{{ prestataire.urlLogo }}" alt="{{prestataire.id}}">
+                    <h6 class='p-2 text-center text-info'><a href='./prestataires/{{prestataire.id}}'>{{prestataire.name}}</a></h6>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

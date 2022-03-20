@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle catégories{% endblock %}
+
+{% block body %}
+     <h3 class='text-center text-info bg-white p-2'>Crée une nouvelle catégories</h3>
+    {{ include('categorys/_form.html.twig') }}
+    <a class='btn btn-lg text-white' href="{{ path('categorys_index') }}"><i class="fas fa-arrow-alt-circle-left"></i></a>
+{% endblock %}

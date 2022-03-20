@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des catégories{% endblock %}
+
+{% block body %}
+     <h3 class='text-center text-info bg-white p-2'>Listes des catégories</h3>
+
+    <table class="table table-dark table-hover text-center">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categorys %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.descript }}</td>
+                <td >
+                    <a class='btn btn-outline-primary disabled' href="{{ path('categorys_show', {'id': category.id}) }}">Voir</a>
+                    <a class='btn btn-outline-warning disabled' href="{{ path('categorys_edit', {'id': category.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas de données trouvées.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="container p-5">
+    <div class="row p-1  text-white">
+    {% for category in categorys %}
+        <div class="col-md-2 p-1">
+            <div class=" text-center">
+                <div class="img"> <img src="{{ category.url_img }}" width="50" href='Categorys/{{ category.id }}' /> </div> <span>{{ category.name}}</span>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-md-2 p-1">
+            <div class=" text-center">
+                <div class="img"> <img src="nothing_found.png" width="50" /> </div> <span>Pas de categories trouvée !</span>
+            </div>
+        </div>
+    {% endfor %}
+        </div>
+</div>
+    
+    <a class='btn btn-outline-success text-center' href="{{ path('categorys_new') }}"><i class='fas fa-user-plus'></i>Nouvelles catégories</a>
+{% endblock %}

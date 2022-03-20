@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Service | {{services.name }} {% endblock %}
+{% block body %}
+        <h3 class='text-center text-info bg-white p-2'> {{ services.name }}</h3>
+        <article class='col'>
+            <div class='card'>
+                <div class='card-body text-center'>
+                    <img class='card-img' src='{{ services.img }}' href="{{path('services_show', { id: services.id })}}"/>
+                    <p>{{ services.descript }}</p>
+                    <h4 class='text-dark text-bold p-1 text-center'> Listes des prestataires du services</h4>
+                    <div class='row p-1'>
+                    {% for prestataire in prestataires %}
+                        {% if prestataire.categoryService == services.name %}
+                         <div class='col-6 text-white p-1'><a class='text-info' href='{{path('prestataires_show', { id: services.id })}}'>{{ prestataire.name }}</a></div>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+                
+                <div class='d-inline text-center card-footer'>
+                    <a class='btn btn-info disabled' href='{{path('services_edit', { id: services.id })}}'>Modifier</a>
+                    <a class='btn btn-danger disabled' href='{{path('services_delete', { id: services.id })}}'>Effacer</a>
+                </div>
+            </div>
+        </article>
+        <a class='btn btn-lg text-white ' href="{{ path('services_index') }}"><i class="fas fa-arrow-alt-circle-left"></i></a>
+{% endblock %}

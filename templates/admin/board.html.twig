@@ -1,0 +1,29 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block title %}Administration bien-être{% endblock %}
+
+{% block main %}
+<h1> Bienvennu sur votre espace d'administration !</h1>
+<div class='container'>
+    {% if app.debug %}  
+    <div class='alert alert-danger'>Mode debug is <strong> true </strong></div>
+    {% else %}
+    <div class='alert alert-success'>Mode debug is <strong> false </strong></div>
+    {% endif %}
+            <td>Type Environement</td>
+            <td>{{ dump(app.environment)}}</td>
+            <td>App</th>
+            <td>{{ dump(app) }}</td>
+            <td>User</th>
+            <td>{{ dump(app.user) }} </td>
+            <td>session</th>
+            <td>{{ dump(app.session) }} </td>
+            <td>Requêtes</td>
+            <td>{{ dump(app.request)}}</td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+{% endblock %}

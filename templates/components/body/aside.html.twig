@@ -1,0 +1,68 @@
+<aside class='text-light p-0 bg-dark text-center'>
+      <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start">
+                    <div class='row'>
+                       <div class='col-12'>
+                       {% if app.user %}
+                            {# Si l'utilisateur est connecter #}                        
+                                {#{% if app.user.inscriptConfirm %}#}
+                                {# Si l'utilisateur a valider son compte #} 
+                                    <div class='alert alert-success'>
+                                        <h6><i class='fas fa-check'></i> Votre compte est valider!</h6>
+                                        <a class='btn btn-danger' href='{{ path('app_logout') }}'><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+                                    </div>
+                                {#{% else %}#}
+                                {# Si l'utilisateur n'a pas valider son compte #}
+                                    <div class='alert alert-warning'>
+                                        <h6><i class='fas fa-info'></i> Votre compte est pas encore valider !</h6>
+                                        <a href="{{path('app_verify_email')}}" class='btn btn-warning'><i class="fas fa-user-check"></i> Activer mon compte</a>
+                                    </div>
+                                {#{% endif %}#}
+                        {% else %}
+                            {# Si l'utilisateur est pas connecter #}
+                            <div class="text-center" id="login">
+                                <div class="align-items-center">
+                                    <a href="{{path('register')}}" class="m-2 btn btn-outline-info"><i class="fas fa-user-plus"></i> Inscription</a>
+                                    <a href="{{path('app_login')}}" class="m-2 btn btn-outline-info"><i class="fas fa-user-check"></i> Connexion</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                       </div>
+
+                        <div class="d-flex col-12" id="search">
+                            <div class="flex-md-column flex-row navbar-nav justify-content-between nav-item" id="search">
+                            <h4 class="p-1" id="search-title">Rechercher</h4><br>
+                                <form action="search" method="post" class="">
+                                <div class="form-group ">
+                                    <label>Catégories</label><br>
+                                    <select name='category' id="category_select_search" class="form-select" aria-label="-- No select --">
+                                    <option value='null'>Choisir une categories</option>
+                            
+                                   {% for category in categorys %}
+                                    <option value='{{category.id}}'>{{category.name}}</option>
+                                    {% endfor %}                            
+                            
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom du prestataire</label>
+                                    <input name="name" type="text" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Code postal</label>
+                                    <input name="postalCode" type="number" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ville</label>
+                                    <input name="localitie" type="text" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Pays</label>
+                                    <input name="country" type="text" class="form-control"/>
+                                </div>
+                                <a type="submit" href="{{ path('search') }}" class=" disabled btn btn-success"><i class='fas fa-search'></i> Rechercher</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+      </nav>
+                    </aside>

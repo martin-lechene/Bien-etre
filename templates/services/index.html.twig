@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %} Liste des catégories de services {% endblock %}
+{% block body %}
+<h3 class='text-center text-info bg-white p-2'>Listes des catégories de services</h3>
+<div class='row'>
+    {% for service in services %}
+    <div class='col-6'>
+        <article class='card m-1'>
+            <img  class='card-img-top' src="{{ service.img }}"/>
+
+            <div class='card-body p-1'>
+                <h3 class='text-info text-center'>{{service.name}}</h1>
+                <p class='p-1 bg-dark text-white text-center'>{{service.descript}}</p>
+            </div>
+            <div class='card-footer text-center p-1'>
+                <a class='btn btn-info' href='services/{{ service.id }}/show'>Voir le service</a>
+            </div>
+        </article>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

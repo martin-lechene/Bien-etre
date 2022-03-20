@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %} Recents {% endblock %}
+{% block body %}
+<div class='container text-light'>
+    <div class='bg-dark row'>
+        <div class="section2">
+            <h3 class='bg-white text-info text-center p-2'>Prestataires récents</h3>
+            <!--CARD BEGINING-->
+            <div class='row'>
+            {% for prestataire in prestataires %}
+                <section class='col-6'>
+                <div class="card bg-white ">
+                    <div class="figure">
+                        <div class="bg_overlay"></div>
+                            <img src="{{ prestataire.urlLogo }}" alt="" loading="lazy">
+                            <div class="head">
+                                <span class="property-type text-white" title="Property For Rent"><i class="fa fa-flower"></i> {{ prestataire.categoryService }}</span>
+                            </div>
+                            <span class="price text-white">{{ prestataire.price }} €</span>
+                        </div>
+                    <div class="content">
+                        <a href="#" class="title text-dark nav-link text-center card-header">{{ prestataire.name }}</a>
+                        <p class="p-2 bg-dark text-white"> {{ prestataire.descShort }}</p>
+                        <span class="address text-info">
+                            <i class="fa fa-map-marker"></i> {{ prestataire.nameCity }}
+                        </span>
+                    </div>
+                    <div class='card-footer text-center'>
+                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-heart mr-2" title="Room"></i>{{ prestataire.numLike }}</span>
+                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-comment mr-2" title="Room"></i>{{ prestataire.numComment }}</span>
+                    </div>
+                </div>
+                </section>
+                <div class='clearfix'></div>
+            {% endfor %}
+            </div>
+            <!--CARD ENDS-->
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
