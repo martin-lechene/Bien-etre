@@ -24,6 +24,13 @@ class HomeController extends AbstractController
      */
     public function home(EntityManagerInterface $entitymanager): Response
     {
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
+        
+        $repository = $entitymanager->getRepository(User::class);
+        $user = $repository->findOneBy(
+            array('id' => '1')
+        );
         $repository = $entitymanager->getRepository(CategorieDeServices::class);
         $categories = $repository->findAll();
         $enAvant = $repository->findBy(
@@ -34,13 +41,7 @@ class HomeController extends AbstractController
         $prestataires = $repository->findLatest();
 
         $repository = $entitymanager->getRepository(Services::class);
-        $services = $repository->findLatest();
-
-        $repository = $entitymanager->getRepository(User::class);
-        $user = $repository->findOneBy(
-            array('id' => '1')
-        );
-
+        
         $repository = $entitymanager->getRepository(Sliders::class);
         $sliders = $repository->findBy(
             array('id' => '1')
@@ -55,7 +56,6 @@ class HomeController extends AbstractController
             "services" => $services,
             "prestataires" => $prestataires,
             "user" => $user,
-            "categorieEnAvant" => $enAvant
         ]);
     }
 
@@ -88,7 +88,6 @@ class HomeController extends AbstractController
             "sliders" => $sliders,
             "categorys" => $categorys,
             "user" => $user,
-            "categorieEnAvant" => $enAvant
         ]);
     }
     
@@ -119,7 +118,6 @@ class HomeController extends AbstractController
             "user" => $user,
             "sliders" => $sliders,
             "prestataires" => $prestataires,
-            "categorieEnAvant" => $enAvant
         ]);
     }
 
