@@ -1,25 +1,38 @@
 {% extends 'base.html.twig' %}
-{% block title %}Listes des utilisateurs{% endblock %}
+{% block title %}
+    {% if app.user %}
+        Profil de {{ app.user.email }}
+    {% else %}
+        Accès refuser !
+    {% endif %}
+{% endblock %}
 {% block body %}
+
+{% if app.user %}
 <div class='row p-3 m-1'>
-{% for userCurrent in user %}
     <div class='col-12 p-2'>
         <div class="card text-center">  
-            <h3 class='text-center text-info p-2 '>{{ userCurrent.username }}</h3>
-            <img class="card-img-top" src="{{ userCurrent.img }}" alt="{{ userCurrent.username }} image of profil">
+            <h3 class='text-center text-info p-2 '>{{ app.user.email }}</h3>
+            <img class="card-img-top" src="{{ app.user.img }}" alt="{{ app.user.email }} image of profil">
             <div class="card-body">
-                <h5 class="card-title bg-dark p-1"><a class='text-white' href='profil/{{ userCurrent.id }}'>{{ userCurrent.username }}</a></h5>
-                Role : <p class="card "> {{userCurrent.roles}}</p>
-                Password : <p class="card ">{{userCurrent.password}}</p>
-                Type_utilisateur :<p class="card ">{{userCurrent.roles}}</p>
-                Nombre d'essai infructueux : <p class="card ">{{userCurrent.roles}}</p>
-                Inscription confirmer ?<p class="card ">{{userCurrent.roles}}</p>
-                Localite_id <p class="card ">{{userCurrent.roles}}</p>
+                <h5 class="card-title bg-dark p-1"><a class='text-white' href='profil/{{ app.user.id }}'>{{ app.user.email }}</a></h5>
+                Role : <p class="card "> {{app.user.roles|json_encode}}</p>
+                Password : <p class="card ">{{app.user.password}}</p>
+                Type_utilisateur :<p class="card ">{{app.user.roles|json_encode}}</p>
+                Nombre d'essai infructueux : <p class="card ">{{app.user.roles|json_encode}}</p>
+                Est-t'il vérifeir ? <p class="card">{{ app.user.isVerified}}</p>
+                Inscription confirmer ?<p class="card ">{{app.user.inscriptConfirm}}</p>
+                Date d'inscription<p class="card ">{{app.user.inscription|date}}</p>
+
                 <adresse class='card bg-dark text-white'>
-                        {{ userCurrent.adresseNum }}, {{ userCurrent.adresse }} <br>
+                        {{ app.user.adresseNum }}, {{ app.user.adresse }} <br>
                 </address>
             </div>
-        
+    
     </div>
-{% endfor %}
+    {% else %}
+    <div class="alert alert-danger text-center">
+        <h3>Vous devez êtes connecter pour accéder à cette page !</h3>
+    </div>
+    {% endif %}
 {% endblock %}

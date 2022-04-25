@@ -3,7 +3,7 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-<form method="post text-white text-center">
+<form method="post" class=" text-white text-centersy">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -12,25 +12,24 @@
         <div class="mb-3 text-center">
             <a class='btn btn-danger' href='{{ path("app_logout") }}'><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
         </div>
-    {% endif %}
-
+    {% else %}
     <h1 class="h3 mb-3 font-weight-normal text-white text-center">Se connecter</h1>
     <label class='text-white' for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label class='text-white' for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-        <div class="checkbox mb-3">
-            <label class='text-white' >
-                <input type="checkbox" name="_remember_me"> Se souvenir de moi
-            </label>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <div class="checkbox mb-2">
+    <label class='text-white'>
+        <input type="checkbox" name="_remember_me"> Se souvenir de moi
+    </label>
         </div>
 
     <button class="btn btn-lg btn-outline-info mt-3 text-center" type="submit">
         Se connecter
     </button>
+    {% endif %}
+
 </form>
 {% endblock %}

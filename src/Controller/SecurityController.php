@@ -4,23 +4,24 @@ namespace App\Controller;
 
 use App\Entity\CategorieDeServices;
 use App\Entity\Prestataires;
+use App\Entity\User;
 use App\Entity\Categorys;
 use App\Entity\Sliders;
 use App\Entity\Services;
 use Doctrine\ORM\EntityManagerInterface;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils,EntityManagerInterface $entityManager): Response
+    public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager,  Request $request): Response
     {
         // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
+        //     return $this->redirectToRoute('profil_index');
         // }
         
         $repository = $entityManager->getRepository(CategorieDeServices::class);
@@ -33,6 +34,7 @@ class SecurityController extends AbstractController
         $prestataires = $repository->findLatest();
 
         $repository = $entityManager->getRepository(Services::class);
+        $services = $repository->findLatest();
         
         $repository = $entityManager->getRepository(Sliders::class);
         $sliders = $repository->findBy(
@@ -41,7 +43,6 @@ class SecurityController extends AbstractController
 
         $repository = $entityManager->getRepository(Categorys::class);
         $categorys = $repository->findLatest();
-        $services = $repository->findLatest();
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -53,7 +54,7 @@ class SecurityController extends AbstractController
             "sliders" => $sliders,
             "services" => $services,
             "prestataires" => $prestataires,
-            "user" => $lastUsername,
+            "categorieEnAvant" => $enAvant,
             'last_username' => $lastUsername,
             "error" => $error
         ]);
