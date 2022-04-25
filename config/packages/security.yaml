@@ -23,6 +23,8 @@ security:
             logout:
                 path: app_logout
             custom_authenticator: App\Security\LoginAuthenticator
+            login_throttling:
+                max_attempts: 3
                 # where to redirect after logout
                 #target: app_login
 

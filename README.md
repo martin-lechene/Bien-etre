@@ -25,6 +25,13 @@ OR BY symfony-cli
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 
+### Install maildev for your mailer
+> Installation avec npm (recommandée): npm -g install maildev
+> Installation avec Docker (alternative) : docker run -p 1080:80 -p 1025:25 djfarrelly/maildev
+> Lancement : maildev
+> Accès : L'interface web de maildev sera accessible via http://localhost:1080 par défaut. Le serveur SMTP (dans la configuration de esmtp ou mhsendmail) est localhost:1025 par défaut.
+
+
 ### Start server symfony (for dev)
 symfony server:start
 Go to http://localhost:[port(8000)]
