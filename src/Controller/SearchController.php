@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class SearchController extends AbstractController
 {
     /**
-     * @Route("/searchs", name="searchs")
+     * @Route("/search", name="search")
      */
     public function index(EntityManagerInterface $entitymanager): Response
     {
@@ -58,7 +58,6 @@ class SearchController extends AbstractController
             "prestataires" => $prestataires,
             "user" => $user,
             "categorieEnAvant" => $enAvant,
-            'controller_name' => 'SearchController',
             //'q' => '$q', 
         ]);
     }

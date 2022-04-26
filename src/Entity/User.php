@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -101,6 +103,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $img;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Categorys::class, mappedBy="id_user")
+     */
+    private $categorys;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Services::class, mappedBy="user")
+     */
+    private $services;
+
+    public function __construct()
+    {
+        // your own logic
+        $this->roles = array('ROLE_USER');
+        $this->categorys = new ArrayCollection();
+        $this->services = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -341,5 +362,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setImg(string $img): self
     {
         $this->img = $img;
+    }
+
+    /**
+     * @return Collection<int, Categorys>
+     */
+    public function getCategorys(): Collection
+    {
+        return $this->categorys;
+    }
+
+    public function addCategory(Categorys $category): self
+    {
+        if (!$this->categorys->contains($category)) {
+            $this->categorys[] = $category;
+            $category->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorys $category): self
+    {
+        if ($this->categorys->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getIdUser() === $this) {
+                $category->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Services>
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
+
+    public function addService(Services $service): self
+    {
+        if (!$this->services->contains($service)) {
+            $this->services[] = $service;
+            $service->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeService(Services $service): self
+    {
+        if ($this->services->removeElement($service)) {
+            // set the owning side to null (unless already changed)
+            if ($service->getUser() === $this) {
+                $service->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

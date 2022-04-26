@@ -79,12 +79,15 @@ class HomeController extends AbstractController
         $user = $repository->findOneBy(
             array('id' => '1')
         );
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
         $repository = $entitymanager->getRepository(Categorys::class);
         $categorys = $repository->findLatest();
 
         return $this->render('home/about.html.twig', [
             "categories" => $categories,
             "prestataires" => $prestataires,
+            "services" => $services,
             "sliders" => $sliders,
             "categorys" => $categorys,
             "user" => $user,
@@ -108,6 +111,8 @@ class HomeController extends AbstractController
         $sliders = $repository->findLatest();
         $repository = $entitymanager->getRepository(Categorys::class);
         $categorys = $repository->findLatest();
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
         $repository = $entitymanager->getRepository(User::class);
         $user = $repository->findOneBy(
             array('id' => '1')
@@ -116,6 +121,7 @@ class HomeController extends AbstractController
         return $this->render('home/contact.html.twig', [
             "categorys" => $categorys,
             "user" => $user,
+            "services" => $services,
             "sliders" => $sliders,
             "prestataires" => $prestataires,
         ]);
@@ -128,7 +134,8 @@ class HomeController extends AbstractController
     {
         $repository = $entitymanager->getRepository(Categorys::class);
         $categorys = $repository->findLatest();
-
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
         $repository = $entitymanager->getRepository(User::class);
@@ -141,34 +148,13 @@ class HomeController extends AbstractController
 
         return $this->render('home/recents.html.twig', [
             "categorys" => $categorys,
+            "services" => $services,
             "user" => $user,
             "prestataires" => $prestataires,
             "sliders" => $sliders,
         ]);
     }
-    /**
-     * @Route("/search", name="search")
-     */
-    public function search(EntityManagerInterface $entitymanager): Response
-    {   
-        $repository = $entitymanager->getRepository(Prestataires::class);
-        $prestataires = $repository->findLatest();
-        $repository = $entitymanager->getRepository(Sliders::class);
-        $sliders = $repository->findLatest();
-        $repository = $entitymanager->getRepository(Categorys::class);
-        $categorys = $repository->findAll();
-        $repository = $entitymanager->getRepository(User::class);
-        $user = $repository->findOneBy(
-            array('id' => '1')
-        );
-        return $this->render('search/demo.html.twig', [
-            "prestataires" => $prestataires,
-            "categorys" => $categorys,
-            "user" => $user,
-            "sliders" => $sliders,
-        ]);
 
-    }
     /**
      * @Route("/profil", name="profil_index")
      */
@@ -190,11 +176,15 @@ class HomeController extends AbstractController
 
         $repository = $entitymanager->getRepository(User::class);
         $user = $repository->findLatest();
+
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
         
         return $this->render('profil/index.html.twig', [
             "categorys" => $categorys,
             "prestataires" => $prestataires,
             "sliders" => $sliders,
+            "services" => $services,
             "user" => $user,
         ]);
     }
@@ -212,12 +202,16 @@ class HomeController extends AbstractController
         $repository = $entitymanager->getRepository(Sliders::class);
         $sliders = $repository->findLatest();
 
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
+
 
         return $this->render('profil/show.html.twig', [
             "prestataires" => $prestataires,
             "categorys" => $categorys,
             "sliders" => $sliders,
             "user" => $user,
+            "services" => $services,
         ]);
     }
     /**
@@ -231,6 +225,9 @@ class HomeController extends AbstractController
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
         
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
+
         $repository = $entitymanager->getRepository(Sliders::class);
         $sliders = $repository->findLatest();
 
@@ -240,6 +237,7 @@ class HomeController extends AbstractController
             "categorys" => $categorys,
             "sliders" => $sliders,
             "user" => $user,
+            "services" => $services,
         ]);
     }
     /**
@@ -253,6 +251,9 @@ class HomeController extends AbstractController
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
         
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
+        
         $repository = $entitymanager->getRepository(Sliders::class);
         $sliders = $repository->findLatest();
         
@@ -260,6 +261,7 @@ class HomeController extends AbstractController
             "prestataires" => $prestataires,
             "categorys" => $categorys,
             "sliders" => $sliders,
+            "services" => $services,
             "user" => $user,
         ]);
     }

@@ -16,19 +16,55 @@
             <img class="card-img-top" src="{{ app.user.img }}" alt="{{ app.user.email }} image of profil">
             <div class="card-body">
                 <h5 class="card-title bg-dark p-1"><a class='text-white' href='profil/{{ app.user.id }}'>{{ app.user.email }}</a></h5>
-                Role : <p class="card "> {{app.user.roles|json_encode}}</p>
-                Password : <p class="card ">{{app.user.password}}</p>
-                Type_utilisateur :<p class="card ">{{app.user.roles|json_encode}}</p>
-                Nombre d'essai infructueux : <p class="card ">{{app.user.roles|json_encode}}</p>
-                Est-t'il vérifeir ? <p class="card">{{ app.user.isVerified}}</p>
-                Inscription confirmer ?<p class="card ">{{app.user.inscriptConfirm}}</p>
-                Date d'inscription<p class="card ">{{app.user.inscription|date}}</p>
-
-                <adresse class='card bg-dark text-white'>
-                        {{ app.user.adresseNum }}, {{ app.user.adresse }} <br>
-                </address>
+                Roles : <p class="card "> {{ app.user.roles|json_encode }}</p>
+                Password : <p class="card ">{{ app.user.password }}</p>
+                Nombre d'essai infructueux : <p class="card ">{{ app.user.nbEssaisInfructueux }}</p>
+                Est-t'il vérifier ? 
+                <p class="card">
+                    {% if app.user.isVerified == 0 %}
+                        <b class="text-danger">Ce compte n'a pas été activer par l'utilisateur.</b>
+                    {% else %}
+                        <b class="text-success">Ce compte à été activer.</b>
+                    {% endif %}
+                </p>
+                Est-il banni ?
+                <p class="card ">
+                    {% if app.user.banni == 0 %}
+                        <b class="text-success">Ce compte n'est pas banni.</b>
+                    {% else %}
+                        <b class="text-danger">Ce compte à été banni.</b>
+                    {% endif %}
+                </p>
+                Date d'inscription<p class="card ">{{ app.user.inscription|date }}</p>
+                Address complète <br>
+                    <adresse class='card bg-dark text-white'>
+                        {% if app.user.adresse %}
+                            {{ app.user.adresseNum }}, {{ app.user.adresse }} <br>
+                        {% else %}
+                            <b class="text-danger">Aucune addresse n'a été indiquée.</b>
+                        {% endif %}
+                   </address>
             </div>
-    
+            <div class="card-body">
+     
+                <h4>Catégories crée</h4>
+                    {% for category in categorys %}
+                        {% if app.user %}   
+                            {% if category.idUser.id == app.user.id %}
+                                {{ category.name }}<br>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                <div class="divider"></div>
+                <h4>Service crée</h4>
+                {% for service in services %}
+                    {% if app.user %}   
+                        {% if service.user.id == app.user.id %}
+                            {{ service.name }}<br>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
     </div>
     {% else %}
     <div class="alert alert-danger text-center">

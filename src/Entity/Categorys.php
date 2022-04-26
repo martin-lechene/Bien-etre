@@ -39,6 +39,12 @@ class Categorys
      */
     private $prestatairesCategorys;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="categorys")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $id_user;
+
    
 
     public function __construct()
@@ -138,6 +144,18 @@ class Categorys
     public function setUrlImg(string $url_img): self
     {
         $this->url_img = $url_img;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?User
+    {
+        return $this->id_user;
+    }
+
+    public function setIdUser(?User $id_user): self
+    {
+        $this->id_user = $id_user;
 
         return $this;
     }

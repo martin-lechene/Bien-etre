@@ -59,6 +59,12 @@ class Services
      */
     private $img;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="services")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
   
     public function __construct()
     {
@@ -209,6 +215,18 @@ class Services
     public function setImg(string $img): self
     {
         $this->img = $img;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
