@@ -39,11 +39,34 @@ final class PrestatairesFactory extends ModelFactory
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'name' => self::faker()->firstName().substr(0,29),
+            'nom' => self::faker()->firstName(),
+            'siteweb' => self::faker()->url(),
+            'num_tel'=> self::faker()->phoneNumber(),
+            'num_tva' => self::faker()->numberBetween(100000000,999999999),
+            'description' => self::faker()->text(10),
+            'num_comment' => self::faker()->numberBetween(1,10),
+            'img_logo' => self::faker()->imageUrl(200,200, 'products', true),
+            'is_public' => self::faker()->boolean(),
+            'name' => self::faker()->company(),
+            'name_street' => self::faker()->streetName(),
             'website' => self::faker()->url(),
-            //'descLong' => self::faker()->descript(),
-            'numTva' => self::faker()->swiftBicNumber(),
-        ];
+            'number_phone' => self::faker()->phoneNumber(),
+            'number_tva' => self::faker()->numberBetween(100000000,999999999),
+            'url_logo' => self::faker()->imageUrl(200,200, 'products', true),
+            'desc_short' => self::faker()->text(10),
+            'desc_long' => self::faker()->text(30),
+            'date_create' => self::faker()->dateTime(),
+            'price' => self::faker()->numberBetween(1,100),
+            'category_service' => self::faker()->text(100), 
+            'num_street' => self::faker()->numberBetween(1,100),
+            'name_city' => self::faker()->city(),
+            'name_steet' => self::faker()->streetName(),
+            'country' => self::faker()->country(),
+            'num_postal' => self::faker()->postcode(),
+            'service' => self::faker()->text(100),
+            'num_like' => self::faker()->numberBetween(1,100),
+            'img' => self::faker()->imageUrl(200,200, 'products', true),
+            ];
     }
 
     protected function initialize(): self

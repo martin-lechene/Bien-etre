@@ -41,7 +41,10 @@ final class CategorieDeServicesFactory extends ModelFactory
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'nom' => substr(self::faker()->jobTitle(),0,29),
             'description' => self::faker()->text(10),
-            'enAvant' => 0,
+            'enAvant' => self::faker()->boolean(),
+            'is_valid' => self::faker()->boolean(),
+            'is_visible_homepage' => self::faker()->boolean(),
+            'en_avant' => self::faker()->boolean(),
             'valide' => self::faker()->boolean(),
         ];
     }

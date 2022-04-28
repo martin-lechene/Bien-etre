@@ -39,10 +39,22 @@ final class ServicesFactory extends ModelFactory
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'name' => substr(self::faker()->jobTitle(),0,29),
-            'description' => self::faker()->text(30),
-            'enAvant' => 0,
-            'valide' => self::faker()->boolean(),
+            'nom' => self::faker()->name(),
+            'siteweb' => self::faker()->url(),
+            'num_tel'=> self::faker()->phoneNumber(),
+            'num_tva' => self::faker()->numberBetween(100000000,999999999),
+            'descript' => self::faker()->text(30),
+            'website' => self::faker()->url(),
+            'number_phone' => self::faker()->phoneNumber(),
+            'number_tva' => self::faker()->numberBetween(100000000,999999999),
+            'url_logo' => self::faker()->imageUrl(200,200, 'products', true),
+            'desc_short' => self::faker()->text(10),
+            'desc_long' => self::faker()->text(30),
+            'date_create' => self::faker()->dateTime(),
+            'is_visible_homepage' => self::faker()->boolean(),
+            'is_valid' => self::faker()->boolean(),
+            'img' => self::faker()->imageUrl(200,200, 'products', true),
+            'user_id' => self::faker()->numberBetween(1,10),
         ];
     }
 
