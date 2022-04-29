@@ -10,15 +10,20 @@
     <div class="alert alert-warning">Vous êtes déjà inscrit et connecter !</div>
     {% else %}
     <h2 class="text-white">Inscription</h2>
-    <div class="p-4">
+    <div class="p-4 text-white text-center">
         {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.plainPassword, {
-                label: 'Password'
-            }) }}
-            {{ form_row(registrationForm.roles) }}
-            {{ form_row(registrationForm.agreeTerms) }}
-    
+            <div class="mb-2 d-flex justify-content-center">
+                {{ form_row(registrationForm.email) }}
+            </div>
+            <div class="mb-2 d-flex justify-content-center">
+                {{ form_row(registrationForm.plainPassword) }}
+            </div>
+            <div class="mb-2 d-flex justify-content-center">
+                {{ form_row(registrationForm.roles) }}
+            </div>
+            <div class="mb-2 d-flex justify-content-center">
+                {{ form_row(registrationForm.agreeTerms) }}
+            </div>
             <button type="submit" class="btn btn-outline-info text-center">S'inscrire</button>
         {{ form_end(registrationForm) }}
     </div>

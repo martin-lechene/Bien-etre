@@ -3,15 +3,16 @@
 namespace App\DataFixtures;
 
 use App\Entity\Categorys;
+use App\Factory\UsersFactory;
 use App\Factory\ImagesFactory;
+use App\Factory\CommuneFactory;
 use App\Factory\SlidersFactory;
 use App\Factory\ServicesFactory;
-use App\Factory\UsersFactory;
-use App\Factory\PrestatairesFactory;
-use App\Factory\CategorieDeServicesFactory;
+use App\Factory\CategorysFactory;
 use App\Factory\CodePostalFactory;
-use App\Factory\CommuneFactory;
+use App\Factory\PrestatairesFactory;
 use Doctrine\Persistence\ObjectManager;
+use App\Factory\CategorieDeServicesFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class AppFixtures extends Fixture

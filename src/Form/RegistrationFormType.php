@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -19,18 +20,34 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'label' => 'Votre e-mail',
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-control',
+                    'autocomplete' => 'new-email',
+                ],
+
+            ])
             ->add('roles', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
+                'label' => 'Quels types d\'utilisateur souhaitez-vous êtes ?',
                 'expanded' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'choices'  => [
-                  'Devenir internaute' => 'ROLE_INTERNAUTE',
-                  'Devenir pestataire' => 'ROLE_PRESTATAIRE',
+                  'Un visiteur' => 'ROLE_INTERNAUTE',
+                  'Un prestataire' => 'ROLE_PRESTATAIRE',
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'J\'accepte les conditions d\uttilisation.',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
@@ -41,16 +58,18 @@ class RegistrationFormType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control'],
+                'label' => 'Votre mot de passe',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Entrer un mot de passe !',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit contenir minimum  {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
+                        'maxMessage' => 'Votre mot de passe doit contenir maximun {{ limit }} characters',
                     ]),
                 ],
             ])

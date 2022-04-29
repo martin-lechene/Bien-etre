@@ -16,7 +16,12 @@
             <img class="card-img-top" src="{{ app.user.img }}" alt="{{ app.user.email }} image of profil">
             <div class="card-body">
                 <h5 class="card-title bg-dark p-1"><a class='text-white' href='profil/{{ app.user.id }}'>{{ app.user.email }}</a></h5>
-                Roles : <p class="card "> {{ app.user.roles|json_encode }}</p>
+                Roles : 
+                    <p class="card ">
+                        {% for role in app.user.roles %}    
+                            {{ role }} <br> 
+                        {% endfor %}    
+                    </p>
                 Password : <p class="card ">{{ app.user.password }}</p>
                 Nombre d'essai infructueux : <p class="card ">{{ app.user.nbEssaisInfructueux }}</p>
                 Est-t'il vérifier ? 
