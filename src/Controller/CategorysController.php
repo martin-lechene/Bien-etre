@@ -38,7 +38,7 @@ class CategorysController extends AbstractController
         $repository = $entitymanager->getRepository(User::class);
         $user = $repository->findLatest();
         
-        return $this->render('services/index.html.twig', [
+        return $this->render('categorys/index.html.twig', [
             "categorys" => $categorys,
             "prestataires" => $prestataires,
             "sliders" => $sliders,
@@ -50,21 +50,37 @@ class CategorysController extends AbstractController
     /**
      * @Route("/categorys/new", name="categorys_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entitymanager): Response
     {
+        $repository = $entitymanager->getRepository(Prestataires::class);
+        $prestataires = $repository->findLatest();
+        
+        $repository = $entitymanager->getRepository(Categorys::class);
+        $categorys = $repository->findLatest();
+        
+        $repository = $entitymanager->getRepository(Sliders::class);
+        $sliders = $repository->findLatest();
+
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
+
         $category = new Categorys();
         $form = $this->createForm(CategorysType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($category);
-            $entityManager->flush();
+            $entitymanager->persist($category);
+            $entitymanager->flush();
 
             return $this->redirectToRoute('categorys_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('categorys/new.html.twig', [
             'category' => $category,
+            "categorys" => $categorys,
+            "prestataires" => $prestataires,
+            "sliders" => $sliders,
+            "services" => $services,
             'form' => $form,
         ]);
     }
@@ -96,7 +112,7 @@ class CategorysController extends AbstractController
         ]);
     }
      /**
-     * @Route("/categorys/{id}/show", name="categorys_show", methods={"GET", "POST"})
+     * @Route("/categorys/{id}/show", name="categorys_show2", methods={"GET", "POST"})
      */
     public function show2(Categorys $category, EntityManagerInterface $entitymanager): Response
     {
