@@ -4,6 +4,8 @@
 {% block title %}Administration bien-être{% endblock %}
 
 {% block main %}
+{% if is_granted("ROLE_ADMIN") %}
+
 <h1> Bienvennu sur votre espace d'administration !</h1>
 <div class='container'>
     {% if app.debug %}  
@@ -26,4 +28,5 @@
 </table>
 
 </div>
+{% endif %}
 {% endblock %}

@@ -7,47 +7,53 @@
             <h3 class='bg-white text-info text-center p-2'>Prestataires récents</h3>
             <!--CARD BEGINING-->
             <div class='row'>
-            {% for user in users %}
-             {% if user.typeUtilisateur == 2 %}
+            {% for prestataire in prestataires %}
                 <section class='col-6'>
                 <div class="card bg-white ">
                     {% if is_granted("ROLE_ADMIN") %}
                     <div class="card-header bg-danger text-white">
-                        <h5 class="card-title">{{user.email}}</h5>
+                        <h5 class="card-title text-center text-bold">{{ prestataire.id }}</h5>
                     </div>
                     {% endif %}
                     <div class="figure">
                         <div class="bg_overlay"></div>
-                            <img src="{{ user.img }}" alt="" loading="lazy">
-                            <div class="head">
-                                <span class="property-type text-white" title="Property For Rent"><i class="fa fa-flower"></i> {#{ user.categoryService }#}</span>
+                            <img src="{{ prestataire.urlLogo }}" alt="" loading="lazy">
+                            <div class="head p-2">
+                                <sspan class="property-type text-white p-3" title="{{ prestataire.descShort }}"> {{ prestataire.CategoryService }}</sspan>
                             </div>
-                            <span class="price text-white">~ {{ user.price }} €</span>
+                            <span class="price text-white">~ {{ prestataire.price }} €</span>
                         </div>
                     <div class="content">
-                        <a href="#" class="title text-dark nav-link text-center card-header">{{ user.name }}</a>
-                        <p class="p-2 bg-dark text-white"> {{ user.descShort }}</p>
+                        <a href="#" class="title text-dark nav-link text-center card-header">{{ prestataire.name }}</a>
+                        <p class="p-2 bg-dark text-white"> {{ prestataire.descShort }}</p>
                         <span class="address text-info">
-                            <i class="fa fa-map-marker"></i> {{ user.nameCity }}
+                            <i class="fa fa-map-marker"></i> {{ prestataire.nameCity }}
                         </span>
                     </div>
                     <div class='card-footer text-center'>
-                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-heart mr-2" title="Room"></i>{{ user.numLike }}</span>
-                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-comment mr-2" title="Room"></i>{{ user.numComment }}</span>
+                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-heart mr-2" title="Room"></i>{{ prestataire.id }}</span>
+                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-comment mr-2" title="Room"></i>{{ prestataire.id }}</span>
                     </div>
-                    <div class="card-footer">
-                        {% if is_granted("ROLE_USER") %}
-                            <a href="{{ path('prestataires_show', {'id': user.id}) }}" class="btn btn-info btn-lg"><i class="fas fa-eyes"></i> Voir</a>
-                        {% endif %}
-                    </div>
+                    {% if is_granted("ROLE_USER") %}
+                        <div class="card-footer">
+                            <a href="/prestataires/{{prestataire.id}}" class="btn btn-info btn-lg"><i class="fas fa-eye"></i> Voir</a>
+                            {% if is_granted("ROLE_PRESTATAIRE") %}
+                                {% if prestataire.id == app.user.id %}
+                                    <a href="/prestataires/{{prestataire.id}}/edit" class="btn btn-warning btn-lg"><i class="fas fa-edit"></i> Modifier</a>
+                                    <a href="/prestataires/{{prestataire.id}}/delete" class="btn btn-danger btn-lg"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                {% endif %}
+                               {% if is_granted("ROLE_ADMIN") %}
+                                    <a href="/prestataires/{{prestataire.id}}/edit" class="btn btn-warning btn-lg"><i class="fas fa-edit"></i> Modifier</a>
+                                    <a href="/prestataires/{{prestataire.id}}/delete" class="btn btn-danger btn-lg"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                {% endif %}
+                             {% endif %}#]
+                        </div>
+                    {% endif %}
                 </div>
                 </section>
                 <div class='clearfix'></div>
-                {% endif %}
                 {% endfor %}
-            
             </div>
-            <!--CARD ENDS-->
         </div>
     </div>
 </div>
