@@ -46,12 +46,12 @@
                             <h4 class="p-1" id="search-title">Rechercher</h4><br>
                                 <form action="search" method="post" class="">
                                 <div class="form-group ">
-                                    <label>Catégories</label><br>
-                                    <select name='category' id="category_select_search" class="form-select" aria-label="-- No select --">
-                                    <option value='null'>Choisir une categories</option>
+                                    <label>Catégories</label>
+                                    <select name='category' id="category_select_search" class="form-select form-control" aria-label="-- No select --">
+                                    <option class="text-dark" value='null'>Choisir une categories</option>
                             
                                    {% for category in categorys %}
-                                    <option value='{{category.id}}'>{{category.name}}</option>
+                                    <option class="text-dark" value='{{category.id}}'>{{category.name}}</option>
                                     {% endfor %}                            
                             
                                     </select>
@@ -68,11 +68,7 @@
                                     <label>Ville</label>
                                     <input name="localitie" type="text" class="form-control"/>
                                 </div>
-                                <div class="form-group">
-                                    <label>Pays</label>
-                                    <input name="country" type="text" class="form-control"/>
-                                </div>
-                                <a type="submit" href="{{ path('search') }}" class=" disabled btn btn-success"><i class='fas fa-search'></i> Rechercher</a>
+                                <a type="submit" href="{{ path('search') }}" class="btn btn-info"><i class='fas fa-search'></i> Rechercher</a>
                                 </form>
 
                         </div>

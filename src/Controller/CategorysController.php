@@ -70,31 +70,91 @@ class CategorysController extends AbstractController
     }
 
     /**
-     * @Route("/categorys/{id}", name="categorys_show", methods={"GET"})
+     * @Route("/categorys/{id}", name="categorys_show", methods={"GET", "POST"})
      */
-    public function show(Categorys $category): Response
+    public function show(Categorys $category, EntityManagerInterface $entitymanager): Response
     {
+        $repository = $entitymanager->getRepository(Prestataires::class);
+        $prestataires = $repository->findLatest();
+        
+        $repository = $entitymanager->getRepository(Categorys::class);
+        $categorys = $repository->findLatest();
+        
+        $repository = $entitymanager->getRepository(Sliders::class);
+        $sliders = $repository->findLatest();
+
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
+
+
         return $this->render('categorys/show.html.twig', [
             'category' => $category,
+            "categorys" => $categorys,
+            "prestataires" => $prestataires,
+            "sliders" => $sliders,
+            "services" => $services,
+        ]);
+    }
+     /**
+     * @Route("/categorys/{id}/show", name="categorys_show", methods={"GET", "POST"})
+     */
+    public function show2(Categorys $category, EntityManagerInterface $entitymanager): Response
+    {
+        $repository = $entitymanager->getRepository(Prestataires::class);
+        $prestataires = $repository->findLatest();
+        
+        $repository = $entitymanager->getRepository(Categorys::class);
+        $categorys = $repository->findLatest();
+        
+        $repository = $entitymanager->getRepository(Sliders::class);
+        $sliders = $repository->findLatest();
+
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
+
+
+        return $this->render('categorys/show.html.twig', [
+            'category' => $category,
+            "categorys" => $categorys,
+            "prestataires" => $prestataires,
+            "sliders" => $sliders,
+            "services" => $services,
         ]);
     }
 
     /**
      * @Route("/categorys/{id}/edit", name="categorys_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Categorys $category, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Categorys $category, EntityManagerInterface $entitymanager): Response
     {
+        $repository = $entitymanager->getRepository(Prestataires::class);
+        $prestataires = $repository->findLatest();
+        
+        $repository = $entitymanager->getRepository(Categorys::class);
+        $categorys = $repository->findLatest();
+        
+        $repository = $entitymanager->getRepository(Sliders::class);
+        $sliders = $repository->findLatest();
+
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
+
         $form = $this->createForm(CategorysType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $entitymanager->flush();
 
             return $this->redirectToRoute('categorys_index', [], Response::HTTP_SEE_OTHER);
         }
 
+
         return $this->renderForm('categorys/edit.html.twig', [
             'category' => $category,
+            "categorys" => $categorys,
+            "prestataires" => $prestataires,
+            "sliders" => $sliders,
+            "services" => $services,
             'form' => $form,
         ]);
     }

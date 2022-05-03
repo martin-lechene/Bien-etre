@@ -1,6 +1,13 @@
-    {% for slider in sliders %}
-      <div class="text-center">
-            <img class="img-responsive p-1 border border-info border-2" src="{{ slider.urlImg }}" alt="{#{ slider.descript }#}">
-            <quote class='text-white'>{#{ slider.descript }#}</quote>
-      </div>
-    {% endfor %}
+<div class="card">
+  {% for slider in sliders %}
+  {% if slider.enAvant %}
+    <h6 class="card-header text-center text-white p-3 bg-info">Catégories du mois</h6>
+    <a href='/categorys/{{ slider.id }}'><img class="card-body" height="200px" src="{{ slider.urlImg }}" alt="{{ slider.descript }}"></a>
+    <p class='card-description text-center'>{{ slider.descript }}</p>
+  {% else %}
+  <div class="text-center">
+    <p class="text-white">Nous n'avons pas mis le sliders du mois actuellement.</p>
+  </div>
+  {% endif %}
+{% endfor %}
+</div>

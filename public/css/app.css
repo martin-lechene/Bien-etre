@@ -411,7 +411,7 @@ section .card .content .address .fa {
 section .card .content footer {
     display: flex;
     align-items: Center;
-    padding: 1rem 0;
+    padding: 0.25rem 0;
 }
 
 section .card .content footer span:not(:first-child) {
@@ -437,8 +437,7 @@ section .card .content footer span:not(:first-child) {
 }
 
 footer {
-    position: fixed;
+    margin-top: 2rem;
     bottom: 0;
-    height: 3rem;
     width: 100%;
 }

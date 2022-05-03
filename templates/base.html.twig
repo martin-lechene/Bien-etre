@@ -15,41 +15,52 @@
         <header>
             {% include 'components/head/header.html.twig' %}
         </header>
-        {% endblock %}
-        {% if not app.user %}
+        {% endblock %} 
+        {% if app.environment == "dev" %}
+            {% if not app.user %}
             <div class="alert alert-warning p-3"><b>Attention :</b> Vous n'êtes pas connecter actuellement !</div>
-        {% else %}
-            {% if is_granted('ROLE_ADMIN')  %}
+            {% else %}
+                {% if is_granted('ROLE_ADMIN')  %}
             <div class="alert alert-success p-3"><b>Féliciation !</b> Vous êtes connecter en tant qu'administrateur !</div>
-            {% endif %}
+                {% elseif is_granted('ROLE_USER') %}
             <div class="alert alert-info pt-2"><i class='fas fa-info p-3 m-3 bg-light'></i>
-                {% if is_granted('ROLE_PRESTATAIRE') %}
+                    {% if is_granted('ROLE_PRESTATAIRE') %}
                    <p>Vous êtes un prestataires !</p>
-                {% endif %}
-                {% if is_granted('ROLE_INTERNAUTE') %}
+                    {% endif %}
+                    {% if is_granted('ROLE_INTERNAUTE') %}
                     <p>Vous êtes un internaute !</p>
-                {% endif %}
+                    {% endif %}
             </div>
+                {% else %}
+            <div class="alert alert-info p-3">
+                Vous ne possédez pas les rôles adéquoi. Contacter un administrateur en cas d'erreur.
+            </div>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            {% if app.user %}
+            <div class="alert alert-info"><b>Attention !</b> Vous n'êtes plus dans l'environement de dev !</div>
+            {% endif %}
         {% endif %}
-        <main class="mx-auto p-5 container card">
+        <main class="mx-auto container">
             <div class="row">
                 {% block aside %}
-                <div class="col-12 col-xs-12 col-md-12 col-lg-2 col-xl-3">
+                <div class="col-12 col-xs-12 col-md-12 col-lg-2 col-xl-3 bg-light">
                     {% include 'components/body/aside.html.twig' %}
                 </div>
                 {% endblock %}
-                <div class="col-12 col-xs-12 col-md-12 col-lg-10 col-xl-9 bg-dark">
-
-                    {% include 'components/body/slider.html.twig' %}
-                    <div class="body-container">
+                <div class="col-12 col-xs-12 col-md-12 col-lg-10 col-xl-9  bg-dark">
+                    <div class="card-header bg-dark">
+                        {% include 'components/body/slider.html.twig' %}
+                    </div>
+                    <div class="card-body">
                     {% block body %}
-
                     {% endblock %}
                     </div>
                 </div>
             </div>
         </main>
-        <footer class='footer'>
+        <footer>
             {% include 'components/footer/footer.html.twig' %}
         </footer>
     </body>

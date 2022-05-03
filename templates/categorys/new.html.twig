@@ -3,7 +3,11 @@
 {% block title %}Nouvelle catégories{% endblock %}
 
 {% block body %}
-     <h3 class='text-center text-info bg-white p-2'>Crée une nouvelle catégories</h3>
-    {{ include('categorys/_form.html.twig') }}
-    <a class='btn btn-lg text-white' href="{{ path('categorys_index') }}"><i class="fas fa-arrow-alt-circle-left"></i></a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <h3 class='text-center text-info bg-white p-2'>Crée une nouvelle catégories</h3>
+        {{ include('categorys/_form.html.twig') }}
+        <a class='btn btn-lg text-white' href="{{ path('categorys_index') }}"><i class="fas fa-arrow-alt-circle-left"></i></a>
+    {% else %}
+        <div class="alert alert-danger"><b>ERREUR !</b> Vous ne posédez pas les droits adéquois.</div>
+    {% endif %}
 {% endblock %}

@@ -12,7 +12,12 @@ class CategorysType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name');
+            ->add('name')
+            ->add('description')
+            ->add('url_img')
+            ->add('save', SubmitType::class)
+        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

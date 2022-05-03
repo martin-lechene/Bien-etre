@@ -1,15 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block title %} Home {% endblock %}
 {% block body %}
-     <h3 class='text-center text-info bg-white p-2'>L'un de nos meilleurs </h3>
-<div class='container'> 
-    <div class='row p-1'>
+    <div class='row'>
         {% for service in services %}
             {% if service.isVisibleHomepage %}
-                <div class='col-12  '>
-                    <div class="card text-center">
-                        <img class="card-img-top" src="{{ service.img }}" alt="Desc img providers">
-                        <a href="services/{{ service.id }}/show" class="m-1 btn btn-info">Voir le service</a>
+                <div class='col-12'>
+                    <div class="card text-center bg-dark p-2">
+                        <img class="card-img" src="{{ service.img }}" alt="Desc img providers">
+                        <a href="services/{{ service.id }}/show" class="card-footer mt-1 p-2 btn btn-info">Voir le service</a>
                     </div>
                 </div>
             {% endif %}
@@ -24,25 +22,26 @@
         }
             {% for prestataire in prestataires %}
                 {% if prestataire.ispublic  == 1 %}
-                    <div class='col-md-12 col-12'>
-                        <div class='bg-light'>
-                            <img class="d-block" src="http://picsum.photos/id/44{{prestataire.id}}/400/400" alt="{{prestataire.id}}">
+                    <div class=' col-6 col-md-6 col-sm-12'>
+                        <div class=''>
+                            <img class="d-block" src="{{ prestataire.img }}" alt="{{prestataire.id}}">
                             <h6 class='p-1 text-center text-dark'>{{prestataire.name}}</h6>
-
                         </div>
                     </div>
                 {% endif %}
             {% endfor %}
     </div>
 </div>#}
-    <div class='row m-1'>
-        {% for prestataire in prestataires %}
-            <div class='p-1 col-3'>
-                <div class='bg-light p-1'>
-                    <img class="d-block card-img" src="{{ prestataire.urlLogo }}" alt="{{prestataire.id}}">
-                    <h6 class='p-2 text-center text-info'><a href='./prestataires/{{prestataire.id}}'>{{prestataire.name}}</a></h6>
+    <div class='row'>
+        <div class="bg-info text-white text-center vertical align-middle ">
+            <h4 class="p-3">Les catégories de services</h4>
+        </div>
+        {% for category in categorys %}
+            <div class='p-1 col-4'>
+                <div class='bg-dark'>
+                    <img src="{{ category.urlImg }}" class="d-block card-img" alt="{{category.id}}">
+                    <h6 class='p-2 text-center text-info text-bold'><a href='./categorys/{{category.id}}'>{{category.name}}</a></h6>
                 </div>
             </div>
         {% endfor %}
-    </div>
 {% endblock %}

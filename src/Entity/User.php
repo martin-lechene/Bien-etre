@@ -104,22 +104,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $img;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Categorys::class, mappedBy="id_user")
-     */
-    private $categorys;
 
     /**
      * @ORM\OneToMany(targetEntity=Services::class, mappedBy="user")
      */
     private $services;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Categorys::class, mappedBy="user")
+     */
+    private $categorys;
+
     public function __construct()
     {
         // your own logic
         $this->roles = array('ROLE_USER');
-        $this->categorys = new ArrayCollection();
         $this->services = new ArrayCollection();
+        $this->categorys = new ArrayCollection();
     }
 
 
@@ -364,35 +365,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->img = $img;
     }
 
-    /**
-     * @return Collection<int, Categorys>
-     */
-    public function getCategorys(): Collection
-    {
-        return $this->categorys;
-    }
-
-    public function addCategory(Categorys $category): self
-    {
-        if (!$this->categorys->contains($category)) {
-            $this->categorys[] = $category;
-            $category->setIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Categorys $category): self
-    {
-        if ($this->categorys->removeElement($category)) {
-            // set the owning side to null (unless already changed)
-            if ($category->getIdUser() === $this) {
-                $category->setIdUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Services>

@@ -24,6 +24,11 @@ class Categorys
      */
     private $name;
 
+        /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -40,12 +45,10 @@ class Categorys
     private $prestatairesCategorys;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="categorys")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="datetime_immutable")
      */
-    private $id_user;
+    private $createdAt;
 
-   
 
     public function __construct()
     {
@@ -66,6 +69,18 @@ class Categorys
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -148,14 +163,14 @@ class Categorys
         return $this;
     }
 
-    public function getIdUser(): ?User
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->id_user;
+        return $this->createdAt;
     }
 
-    public function setIdUser(?User $id_user): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->id_user = $id_user;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

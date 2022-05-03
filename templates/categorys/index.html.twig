@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Description</th>
                 <th>actions</th>
             </tr>
@@ -22,7 +22,10 @@
                 <td>{{ category.descript }}</td>
                 <td >
                     <a class='btn btn-outline-primary disabled' href="{{ path('categorys_show', {'id': category.id}) }}">Voir</a>
-                    <a class='btn btn-outline-warning disabled' href="{{ path('categorys_edit', {'id': category.id}) }}">Modifier</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class='btn btn-outline-info' href="{{ path('categorys_edit', {'id': category.id}) }}">Modifier</a>
+                        {{ include('categorys/_delete_form.html.twig') }}
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
