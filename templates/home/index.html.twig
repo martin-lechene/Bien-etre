@@ -4,43 +4,41 @@
     <div class='row'>
         {% for service in services %}
             {% if service.isVisibleHomepage %}
-                <div class='col-12'>
-                    <div class="card text-center bg-dark p-2">
+                <div class='col-lg-6 col-md-6 col-sm-12 h-50 '>
+                    <div class="card text-center bg-dark">
                         <img class="card-img" src="{{ service.img }}" alt="Desc img providers">
-                        <a href="services/{{ service.id }}/show" class="card-footer mt-1 p-2 btn btn-info">Voir le service</a>
+                        <p class="card-text text-white">{{ service.name }}</p>
+                        <a href="{{ path('services_show', {'id': service.id}) }}" class="btn btn-info btn-lg">Voir</a>
                     </div>
                 </div>
             {% endif %}
                 {% endfor %}       
     </div></h3>
 </div>
-{#<div class='container text-light'>
-    <h4 class='p-1'>// Les prestataires en avant {# { 'Prestataires mis en avant' | trans }  }</h4>
+<div class='container text-light'>
+    <h4 class='p-1'> {# { 'Prestataires mis en avant' | trans }  #}</h4>
     <div class='row'>
-        {#
-        Boucle pour récupérer prestataires.name/description/id
-        }
             {% for prestataire in prestataires %}
                 {% if prestataire.ispublic  == 1 %}
-                    <div class=' col-6 col-md-6 col-sm-12'>
-                        <div class=''>
-                            <img class="d-block" src="{{ prestataire.img }}" alt="{{prestataire.id}}">
+                    <div class='col-lg(4 col-md-6 col-sm-12'>
+                        <div class='card'>
+                            <img src="{{ prestataire.urlLogo }}" alt="{{prestataire.id}}">
                             <h6 class='p-1 text-center text-dark'>{{prestataire.name}}</h6>
                         </div>
                     </div>
                 {% endif %}
             {% endfor %}
     </div>
-</div>#}
+</div>
     <div class='row'>
-        <div class="bg-info text-white text-center vertical align-middle ">
+        <div class="col-2 bg-info text-white text-center vertical align-middle ">
             <h4 class="p-3">Les catégories de services</h4>
         </div>
         {% for category in categorys %}
             <div class='p-1 col-4'>
-                <div class='bg-dark'>
+                <div class='card'>
                     <img src="{{ category.urlImg }}" class="d-block card-img" alt="{{category.id}}">
-                    <h6 class='p-2 text-center text-info text-bold'><a href='./categorys/{{category.id}}'>{{category.name}}</a></h6>
+                    <h6 class='p-2 text-center text-danger text-bold'><a href='./categorys/{{category.id}}'>{{category.name}}</a></h6>
                 </div>
             </div>
         {% endfor %}

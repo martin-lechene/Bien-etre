@@ -50,26 +50,29 @@
                         {% endif %}
                    </address>
             </div>
+            {#
             <div class="card-body">
-     
                 <h4>Catégories crée</h4>
-                    {% for category in categorys %}
-                        {% if app.user %}   
-                            {% if category.idUser.id == app.user.id %}
-                                {{ category.name }}<br>
-                            {% endif %}
+                {% for category in categorys %}
+                    {% if app.user %}   
+                        {% if category.userId == app.user.id %}
+                            {{ category.name }}<br>
                         {% endif %}
-                    {% endfor %}
+                   {% endif %}
+                {% else %}
+                    <b class="text-danger">Aucune catégorie n'a été crée.</b>
+                {% endfor %}
                 <div class="divider"></div>
                 <h4>Service crée</h4>
                 {% for service in services %}
-                    {% if app.user %}   
-                        {% if service.user.id == app.user.id %}
-                            {{ service.name }}<br>
-                        {% endif %}
-                    {% endif %}
+                {% if app.user %}   
+                {% if service.user.id == app.user.id %}
+                {{ service.name }}<br>
+                {% endif %}
+                {% endif %}
                 {% endfor %}
             </div>
+            #}
     </div>
     {% else %}
     <div class="alert alert-danger text-center">

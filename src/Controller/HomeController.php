@@ -9,6 +9,7 @@ use App\Entity\Prestataires;
 use App\Entity\Services;
 use App\Entity\User;
 use App\Entity\Images;
+use knp\Component\Pager\PaginatorInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -139,9 +140,8 @@ class HomeController extends AbstractController
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
         $repository = $entitymanager->getRepository(User::class);
-        $user = $repository->findOneBy(
-            array('id' => '1')
-        );
+        $users = $repository->findAll();
+
 
         $repository = $entitymanager->getRepository(Sliders::class);
         $sliders = $repository->findLatest();
@@ -149,7 +149,7 @@ class HomeController extends AbstractController
         return $this->render('home/recents.html.twig', [
             "categorys" => $categorys,
             "services" => $services,
-            "user" => $user,
+            "users" => $users,
             "prestataires" => $prestataires,
             "sliders" => $sliders,
         ]);

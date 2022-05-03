@@ -1,38 +1,51 @@
 {% extends 'base.html.twig' %}
 {% block title %} Recents {% endblock %}
 {% block body %}
-<div class='container text-light'>
+<div class='text-light'>
     <div class='bg-dark row'>
         <div class="section2">
             <h3 class='bg-white text-info text-center p-2'>Prestataires récents</h3>
             <!--CARD BEGINING-->
             <div class='row'>
-            {% for prestataire in prestataires %}
+            {% for user in users %}
+             {% if user.typeUtilisateur == 2 %}
                 <section class='col-6'>
                 <div class="card bg-white ">
+                    {% if is_granted("ROLE_ADMIN") %}
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="card-title">{{user.email}}</h5>
+                    </div>
+                    {% endif %}
                     <div class="figure">
                         <div class="bg_overlay"></div>
-                            <img src="{{ prestataire.urlLogo }}" alt="" loading="lazy">
+                            <img src="{{ user.img }}" alt="" loading="lazy">
                             <div class="head">
-                                <span class="property-type text-white" title="Property For Rent"><i class="fa fa-flower"></i> {{ prestataire.categoryService }}</span>
+                                <span class="property-type text-white" title="Property For Rent"><i class="fa fa-flower"></i> {#{ user.categoryService }#}</span>
                             </div>
-                            <span class="price text-white">{{ prestataire.price }} €</span>
+                            <span class="price text-white">~ {{ user.price }} €</span>
                         </div>
                     <div class="content">
-                        <a href="#" class="title text-dark nav-link text-center card-header">{{ prestataire.name }}</a>
-                        <p class="p-2 bg-dark text-white"> {{ prestataire.descShort }}</p>
+                        <a href="#" class="title text-dark nav-link text-center card-header">{{ user.name }}</a>
+                        <p class="p-2 bg-dark text-white"> {{ user.descShort }}</p>
                         <span class="address text-info">
-                            <i class="fa fa-map-marker"></i> {{ prestataire.nameCity }}
+                            <i class="fa fa-map-marker"></i> {{ user.nameCity }}
                         </span>
                     </div>
                     <div class='card-footer text-center'>
-                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-heart mr-2" title="Room"></i>{{ prestataire.numLike }}</span>
-                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-comment mr-2" title="Room"></i>{{ prestataire.numComment }}</span>
+                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-heart mr-2" title="Room"></i>{{ user.numLike }}</span>
+                        <span class='text-info text-bolder mr-3 ml-3'><i class="fa fa-comment mr-2" title="Room"></i>{{ user.numComment }}</span>
+                    </div>
+                    <div class="card-footer">
+                        {% if is_granted("ROLE_USER") %}
+                            <a href="{{ path('prestataires_show', {'id': user.id}) }}" class="btn btn-info btn-lg"><i class="fas fa-eyes"></i> Voir</a>
+                        {% endif %}
                     </div>
                 </div>
                 </section>
                 <div class='clearfix'></div>
-            {% endfor %}
+                {% endif %}
+                {% endfor %}
+            
             </div>
             <!--CARD ENDS-->
         </div>
