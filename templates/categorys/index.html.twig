@@ -43,13 +43,15 @@
     <h1 class="text-center text-info p-3 bg-light "> Preview d'uttilisateur</h1>
     {% endif %}
     {% if app.user %}
-        <div class="container">
             <div class="row text-white">
             {% for category in categorys %}
                 <div class="col-3">
                     <div class=" text-center">
-                        <div class="img"> <img src="{{ category.url_img }}" width="50" href='Categorys/{{ category.id }}' /> </div> 
+                        <div class="img"> <img src="{{ category.url_img }}" width="50" href='categorys/{{ category.id }}' /> </div> 
                         <span>{{ category.name}}</span>
+                        <div class="d-flex justify-content-center mt-3">
+                            <a class='btn btn-lg btn-info' href="categorys/{{ category.id }}"><i class="fas fa-eye mr-3"></i> Voir</a>
+                        </div>
                     </div>
                 </div>
             {% else %}
@@ -60,7 +62,6 @@
                 </div>
             {% endfor %}
             </div>
-        </div>
     {% else %}
             <div class="alert alert-warning"><b>ATTENTION !</b> Vous n'êtes pas connecter ! Connectez-vous pour accéder à cette page.</div>
     {% endif %}

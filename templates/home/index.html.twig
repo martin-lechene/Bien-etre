@@ -1,45 +1,76 @@
 {% extends 'base.html.twig' %}
 {% block title %} Home {% endblock %}
 {% block body %}
-    <div class='row'>
-        {% for service in services %}
-            {% if service.isVisibleHomepage %}
-                <div class='col-lg-6 col-md-6 col-sm-12 h-50 '>
-                    <div class="card text-center bg-dark">
-                        <img class="card-img" src="{{ service.img }}" alt="Desc img providers">
-                        <p class="card-text text-white">{{ service.name }}</p>
-                        <a href="{{ path('services_show', {'id': service.id}) }}" class="btn btn-info btn-lg">Voir</a>
-                    </div>
+
+    {# Listes des 3 derniers prestataires récent #}
+    <h2 class="text-info">Nos derniers prestataires</h2>
+    <div class="row">
+    {% for prestataire in prestataires %}
+        <div class="col-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title">{{ prestataire.name }}</h3>
                 </div>
-            {% endif %}
-                {% endfor %}       
-    </div></h3>
-</div>
-<div class='container text-light'>
-    <h4 class='p-1'> {# { 'Prestataires mis en avant' | trans }  #}</h4>
-    <div class='row'>
-            {% for prestataire in prestataires %}
-                {% if prestataire.ispublic  == 1 %}
-                    <div class='col-lg(4 col-md-6 col-sm-12'>
-                        <div class='card'>
-                            <img src="{{ prestataire.urlLogo }}" alt="{{prestataire.id}}">
-                            <h6 class='p-1 text-center text-dark'>{{prestataire.name}}</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ prestataire.urlLogo }}" alt="{{ prestataire.name }}" class="img-fluid">
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{ prestataire.descShort }}</p>
+                            <div class="text-center">
+                                <a href="{{ path('prestataires_show', {'id': prestataire.id}) }}" class="btn btn-info">Voir <i class='fas fa-eye ml-2'></i></a>
+                                {% if is_granted("ROLE_PRESTATAIRE") and app.user.id == prestataire.user.id %}
+                                    <a href="{{ path('prestataires_edit', {'id': prestataire.id}) }}" class="btn btn-warning"><i class='fas fa-edit ml-2'></i></a>
+                                    <a href="{{ path('prestataires_delete', {'id': prestataire.id}) }}" class="btn btn-danger"> <i class='fas fa-trash ml-2'></i></a>
+                                {% endif %}
+                                {% if is_granted("ROLE_ADMIN") %}
+                                    <a href="{{ path('prestataires_edit', {'id': prestataire.id}) }}" class="btn btn-warning"><i class='fas fa-edit ml-2'></i></a>
+                                    <a href="{{ path('prestataires_delete', {'id': prestataire.id}) }}" class="btn btn-danger"> <i class='fas fa-trash ml-2'></i></a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                {% endif %}
-            {% endfor %}
-    </div>
-</div>
-    <div class='row'>
-        <div class="col-2 bg-info text-white text-center vertical align-middle ">
-            <h4 class="p-3">Les catégories de services</h4>
-        </div>
-        {% for category in categorys %}
-            <div class='p-1 col-4'>
-                <div class='card'>
-                    <img src="{{ category.urlImg }}" class="d-block card-img" alt="{{category.id}}">
-                    <h6 class='p-2 text-center text-danger text-bold'><a href='./categorys/{{category.id}}'>{{category.name}}</a></h6>
                 </div>
             </div>
+        </div>
         {% endfor %}
+        </div>
+    {# Call to action pour la pages récents #}
+        <div class="bg-light text-center fade-in-b p-2">
+            <h1>Envie de <b>plus</b> ? <br> <a href="{{ path('recents')}}" class="btn btn-info">Regardes les plus récent !</a></h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat ad assumenda nisi harum omnis itaque ea accusamus sint numquam nam est quod ab dolorum atque, quisquam exercitationem tempora similique! Corrupti.</p>
+        </div>
+    {# Listes des catégories de services #}
+    <h2 class="text-info">Nos catégories</h2>
+    <div class="row">
+        {% for category in categorys %}
+        <div class="col-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title">{{ category.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ category.urlImg }}" alt="{{ category.name }}" class="img-fluid">
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{ category.description }}</p>
+                            <div class="text-center">
+                                <a href="{{ path('categorys_show', {'id': category.id}) }}" class="btn btn-info">Voir <i class='fas fa-eye ml-2'></i></a>
+                                {% if is_granted("ROLE_ADMIN") %}
+                                    <a href="{{ path('categorys_edit', {'id': category.id}) }}" class="btn btn-warning"><i class='fas fa-edit ml-2'></i></a>
+                                {% endif %}
+                                {% if is_granted("ROLE_ADMIN") %}
+                                    <a href="{{ path('categorys_delete', {'id': category.id}) }}" class="btn btn-danger"> <i class='fas fa-trash ml-2'></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
 {% endblock %}

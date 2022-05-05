@@ -1,0 +1,31 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block title %}Gestion de vos prestations{% endblock %}
+
+{% block main %}
+{% if not is_granted("ROLE_ADMIN") %}
+    <div class="alert alert-primary"><b>Attention !</b> Cette page est dédier aux prestataires et vous êtes conntecter en tant qu'administrateur.</div>
+{% elseif is_granted("ROLE_PRESTATAIRE") %}
+    <div class="alert alert-success"><b>Success ! </b>Vous êtes bien un prestataire, vous pouvez gérez l'ensemble de service via cette nouvelle interface, n'oublier pas de lire notre <a href="/faq">F.A.Q</a>. Pour plus d'information ! Ou contactez-nous <a href="/contact">ICI</a></div>
+{% elseif is_granted("ROLE_INTERNAUTE") %}
+    <div class="alert alert-primary"><b>Attention  !</b> Vous n'avez pas le rôle requis. contactez-nous pour modifier.</div>
+{% elseif is_granted('ROLE_USER') %}
+    <div class="alert alert-primary"><b>Attention  !</b> Vous n'avez pas de rôle. contactez-nous pour modifier.</div>
+{% else %}
+    <div class="alert alert-primary"><b>Attention  !</b> Vous n'êtes pas conntecter ! <a href="/login">Connectez-vous</a> !</div>
+{% endif %}
+{% if not is_granted("ROLE_ADMIN") %}
+    <h1>Gestion des préstataires</h1>
+    <p>Ce panel d'administration est uniquement visible par les administrateurs</p>
+{% elseif is_granted("ROLE_PRESTATAIRE") %}
+    <h1>Gestion de vos préstations</h1>
+    <p> 
+        Grâce à ce panel de gestion, rien ne sera plus facile à gérez pour vos prestations !
+    </p>
+{% else %}
+    <p class="text-danger bg-dark p-3 text-center">
+        Vous n'êtes pas autorisé à accéder à cette page.
+    </p>
+{% endif %}
+{% endblock %}

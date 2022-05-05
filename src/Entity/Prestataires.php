@@ -120,6 +120,11 @@ class Prestataires
      */
     private $num_comment;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="prestataires")
+     */
+    private $User;
+
     public function __construct()
     {
         $this->categorys = new ArrayCollection();
@@ -402,6 +407,18 @@ class Prestataires
     public function setNumComment(int $num_comment): self
     {
         $this->num_comment = $num_comment;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
 
         return $this;
     }

@@ -60,24 +60,26 @@ class DashboardController extends AbstractDashboardController
     }
    
     public function configureMenuItems(): iterable
-    {
-        return [
+    {   
+         return [
             MenuItem::section('<p class="text-info">Listes de toutes les pages</p>'),
             MenuItem::linkToUrl('Homepage', 'fa fa-home', '../'),
             MenuItem::linkToUrl('About', 'fa fa-info','/about'),
             MenuItem::linkToUrl('Contact', 'fa fa-envelope', '/contact'),
-
+            
             MenuItem::section('<p class="text-info">Catégories de services</p>'),
             MenuItem::linkToUrl('Listes services', 'fa fa-list', '/service'),
             MenuItem::linkToUrl('Ajouter un service', 'fa fa-plus', '/service/add'),
             
             MenuItem::section('<p class="text-info">Prestataires</p>'),
             MenuItem::linkToUrl('Listes des prestataires', 'fa fa-list', '/'),
-            MenuItem::linkToUrl('Ajouter un prestataires', 'fa fa-plus', '/add'),
-            
+            MenuItem::linkToUrl('Ajouter un prestataires', 'fa fa-plus', '/add'), 
+            MenuItem::linkToUrl('Panel de gestion', 'fa fa-cogs', '/gestion'),
+
             MenuItem::section('<p class="text-info">Utilisateurs</p>'),
             MenuItem::linkToUrl('Listes des utilisateurs', 'fa fa-list', '/'),
             MenuItem::linkToUrl('Ajouter un utilisateur', 'fa fa-plus', '/add'),
+                
             MenuItem::section('<p class="text-info">Mise en avant</p>'),
             MenuItem::linkToUrl('Modifier le(s) slider(s) en avant', 'fa fa-info', '/'),
             MenuItem::linkToUrl('Modifier le(s) prestataire(s) en avant', 'fa fa-user', '/'),

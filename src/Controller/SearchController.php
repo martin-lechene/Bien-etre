@@ -18,6 +18,7 @@ use App\Entity\User;
 use App\Entity\Images;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class SearchController extends AbstractController
 {
@@ -91,14 +92,40 @@ class SearchController extends AbstractController
 
         $form = $this->createFormBuilder(null)
             ->setAction($this->generateUrl('search'))
-            ->add('Rechercher', TextType::class, [
+            ->add('name', TextType::class, [
+                'label' => "Nom d'un prestataire",
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr' => [
+                    'placeholder' => 'Ex : Koif koif',
+                    'class' => 'form-control tinymce'
+                ],
+            ])
+            ->add('num_postal', NumberType::class, [
+                "label" => "Code postal",
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
                 'attr'=> [
-                    'class' => 'form-control text-info'
+                    'class' => 'form-control',
+                    'placeholder' => 'Ex : 75000'
                 ]
             ])
+            ->add('name_city', TextType::class, [
+                "label" => "Ville",
+                'label_attr' => [
+                    'class' => 'text-white'
+                ],
+                'attr'=> [
+                    'class' => 'form-control',
+                    'placeholder' => 'Ex : Paris'
+                ]
+            ])
+
             ->add('recherche', SubmitType::class, [
                 'attr'=> [
-                    'class' => 'btn btn-success'
+                    'class' => 'btn btn-success mt-3 '
                 ]
             ])
             ->getForm();

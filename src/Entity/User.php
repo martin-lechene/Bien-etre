@@ -115,12 +115,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $categorys;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Prestataires::class, mappedBy="User")
+     */
+    private $prestataires;
+
     public function __construct()
     {
         // your own logic
         $this->roles = array('ROLE_USER');
         $this->services = new ArrayCollection();
         $this->categorys = new ArrayCollection();
+        $this->prestataires = new ArrayCollection();
     }
 
 
@@ -390,6 +396,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($service->getUser() === $this) {
                 $service->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Prestataires>
+     */
+    public function getPrestataires(): Collection
+    {
+        return $this->prestataires;
+    }
+
+    public function addPrestataire(Prestataires $prestataire): self
+    {
+        if (!$this->prestataires->contains($prestataire)) {
+            $this->prestataires[] = $prestataire;
+            $prestataire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrestataire(Prestataires $prestataire): self
+    {
+        if ($this->prestataires->removeElement($prestataire)) {
+            // set the owning side to null (unless already changed)
+            if ($prestataire->getUser() === $this) {
+                $prestataire->setUser(null);
             }
         }
 

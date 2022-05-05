@@ -17,15 +17,14 @@ class SearchType extends AbstractType
             ->add('search', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Rechercher un prestataire',
-                    'class' => 'form-control',
-                    'style' => 'width: 100%;'
+                    'placeholder' => 'Search',
+                    'class' => 'form-control'
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Rechercher',
+                'label' => 'Search',
                 'attr' => [
-                    'class' => 'btn btn-primary btn-block'
+                    'class' => 'btn btn-primary'
                 ]
             ])
         ;

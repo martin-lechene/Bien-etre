@@ -441,3 +441,9 @@ footer {
     bottom: 0;
     width: 100%;
 }
+.image_outer_container{
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 50%;
+    position: relative;
+}
