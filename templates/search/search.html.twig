@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
-{% block title %} Rechercher un prestataire{% endblock %}
+{% block title %} Rechercher d'un prestataire{% endblock %}
 {% block body %}
 
 
-<h1>Recherche</h1>
-{{ form(searh_form) }}
+{{ form(search_form) }}
 
  {#{ 
     render(controller(
@@ -76,3 +75,4 @@
     });
     
 </script>
+{% endblock %}

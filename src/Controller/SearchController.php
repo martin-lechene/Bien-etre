@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-
+use Symfony\Component\Form\FormBuilderInterface;
 use App\Entity\CategorieDeServices;
 use App\Entity\Categorys;
 use App\Entity\Sliders;
@@ -16,6 +16,9 @@ use App\Entity\Prestataires;
 use App\Entity\Services;
 use App\Entity\User;
 use App\Entity\Images;
+
+use App\Form\SearchType;
+
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -23,7 +26,8 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 class SearchController extends AbstractController
 {
     /**
-     * @Route("/search", name="search")
+     * @Route("/searchfull", name="search")
+     * 
      */
     public function index(EntityManagerInterface $entitymanager): Response
     {
@@ -63,6 +67,52 @@ class SearchController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/search", name="search_result")
+     * 
+     */
+    public function search(EntityManagerInterface $entitymanager, Request $request): Response
+    {
+        $prestatairesSearchForm = $this->createFormBuilder(SearchType::class);
+
+        $repository = $entitymanager->getRepository(CategorieDeServices::class);
+        $categories = $repository->findAll();
+        $enAvant = $repository->findBy(
+            array('enAvant' => '1')
+        );
+
+        $repository = $entitymanager->getRepository(Prestataires::class);
+        $prestataires = $repository->findLatest();
+
+        $repository = $entitymanager->getRepository(Services::class);
+        $services = $repository->findLatest();
+
+        $repository = $entitymanager->getRepository(User::class);
+        $user = $repository->findOneBy(
+            array('id' => '1')
+        );
+
+        $repository = $entitymanager->getRepository(Sliders::class);
+        $sliders = $repository->findBy(
+            array('id' => '1')
+        );
+
+        $repository = $entitymanager->getRepository(Categorys::class);
+        $categorys = $repository->findLatest();
+     
+
+        return $this->render('search/search.html.twig', 
+        [
+            "categorys" => $categorys,
+            "sliders" => $sliders,
+            "services" => $services,
+            "prestataires" => $prestataires,
+            "user" => $user,
+            "categorieEnAvant" => $enAvant,
+            "search_form" => $prestatairesSearchForm->getForm()->createView(),
+        ]);
+    }
+
     public function searchBar(EntityManagerInterface $entitymanager): Response
     {
         $repository = $entitymanager->getRepository(CategorieDeServices::class);
@@ -93,6 +143,7 @@ class SearchController extends AbstractController
         $form = $this->createFormBuilder(null)
             ->setAction($this->generateUrl('search'))
             ->add('name', TextType::class, [
+                'required' => false,
                 'label' => "Nom d'un prestataire",
                 'label_attr' => [
                     'class' => 'text-white'
@@ -103,6 +154,7 @@ class SearchController extends AbstractController
                 ],
             ])
             ->add('num_postal', NumberType::class, [
+                'required' => false,
                 "label" => "Code postal",
                 'label_attr' => [
                     'class' => 'text-white'
@@ -113,6 +165,7 @@ class SearchController extends AbstractController
                 ]
             ])
             ->add('name_city', TextType::class, [
+                'required' => false,
                 "label" => "Ville",
                 'label_attr' => [
                     'class' => 'text-white'
@@ -123,9 +176,9 @@ class SearchController extends AbstractController
                 ]
             ])
 
-            ->add('recherche', SubmitType::class, [
+            ->add('rechercher', SubmitType::class, [
                 'attr'=> [
-                    'class' => 'btn btn-success mt-3 '
+                    'class' => 'btn btn-info mt-3 '
                 ]
             ])
             ->getForm();
