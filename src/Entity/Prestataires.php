@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\PrestatairesRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -60,10 +59,6 @@ class Prestataires
      */
     private $date_create;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Categorys::class, inversedBy="prestataires")
-     */
-    private $categorys;
 
     /**
      * @ORM\Column(type="boolean")
@@ -105,10 +100,6 @@ class Prestataires
      */
     private $numPostal;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $services;
 
     /**
      * @ORM\Column(type="integer")
@@ -127,7 +118,7 @@ class Prestataires
 
     public function __construct()
     {
-        $this->categorys = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -159,29 +150,6 @@ class Prestataires
         return $this;
     }
 
-    public function getnumber_phone(): ?string
-    {
-        return $this->number_phone;
-    }
-
-    public function setnumber_phone(string $number_phone): self
-    {
-        $this->number_phone = $number_phone;
-
-        return $this;
-    }
-
-    public function getnumber_tva(): ?string
-    {
-        return $this->number_tva;
-    }
-
-    public function setnumber_tva(string $number_tva): self
-    {
-        $this->number_tva = $number_tva;
-
-        return $this;
-    }
 
     public function getUrlLogo(): ?string
     {
@@ -231,29 +199,6 @@ class Prestataires
         return $this;
     }
 
-    /**
-     * @return Collection|Categorys[]
-     */
-    public function getCategorys(): Collection
-    {
-        return $this->categorys;
-    }
-
-    public function addCategory(Categorys $category): self
-    {
-        if (!$this->categorys->contains($category)) {
-            $this->categorys[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Categorys $category): self
-    {
-        $this->categorys->removeElement($category);
-
-        return $this;
-    }
 
     public function getNumberPhone(): ?string
     {
@@ -375,17 +320,6 @@ class Prestataires
         return $this;
     }
 
-    public function getServices(): ?string
-    {
-        return $this->services;
-    }
-
-    public function setServices(string $services): self
-    {
-        $this->services = $services;
-
-        return $this;
-    }
 
     public function getNumLike(): ?int
     {

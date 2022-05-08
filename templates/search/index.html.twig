@@ -11,7 +11,7 @@
 {% if app.request.method == 'POST' %}
     <div class="">
         {% if prestataires | length == 0 %}
-            <h4 class="text-info">Aucun résulat pour votre recherche.</h4>
+        <h4 class="text-danger text-center">Aucun résulat pour votre recherche.</h4>
            {% else %}
                <h3 class="mt-3 text-info">Vos résulats de recherche :</h3>
                {% for prestataire in prestataires %}
@@ -24,13 +24,20 @@
                                     </a>
                                </div>
                                <div class="col-md-8">
-                                    <h4 class="text-info"><i class="fas fa-angle-right text-primary"></i> {{ prestataire.name }} | <span class="badge badge-info btn-outline-danger">{{ prestataire.categoryService }}</span></h4> 
+                                    <h4 class="text-info"><i class="fas fa-angle-right text-primary"></i> {{ prestataire.name }} | <span class="badge badge-info btn-outline-danger">{{ prestataire.categoryService }}</span></h4>
+                                    <div class=" ml-1 text-md-left text-sm-center">
+                                        <i class="fas fa-heart text-danger "></i>  {{ prestataire.numLike | length }} | <i class="fas fa-comments text-info"></i> {{ prestataire.numComment | length }} 
+                                    </div>
+                                    <h5 class="text-info small"> [CP :{{ prestataire.numPostal}} | Ville : {{prestataire.nameCity }}] </h5> 
                                     <p class="text-dark  p-1 rounded">
                                         {{ prestataire.descLong }}
-                                    <div class="text- p-1 text-right">
+                                    <div class=" p-1 text-right">
+                                        {{ prestataire.price }}
                                           par <a href="{{ path('profil_show', {'id': prestataire.user.id}) }}">{{ prestataire.user.email }}</a>
                                     </div>
-                                    <a class="btn btn-info" href="{{ path('prestataires_show', {'id': prestataire.id}) }}"><i class="fas fa-eye mr-2"></i>Voir</a>
+                                    
+                                    <a class="btn btn-info" href="{{ path('prestataires_show', {'id': prestataire.id}) }}"><i class="fas fa-eye mt-2 mr-2"></i>Voir</a>
+                                    <a class="btn btn-danger" href=""><i class="mt-2 fas fa-heart"></i></a>
                                 </div>
                             </div>
                    </div>

@@ -3,6 +3,7 @@
   {% if slider.enAvant %}
     <h6 class="card-header text-center text-white p-3 bg-info">Catégories du mois</h6>
     <a href='/categorys/{{ slider.id }}'><img class="card-body" height="200px" src="{{ slider.urlImg }}" alt="{{ slider.descript }}"></a>
+    <h4 class="text-info text-center">{{ slider.name }}</h4>
     <p class='card-description text-center'>{{ slider.descript }}</p>
   {% else %}
   <div class="text-center">

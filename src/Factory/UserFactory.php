@@ -41,20 +41,14 @@ final class UserFactory extends ModelFactory
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'email' => self::faker()->email(),
             'is_verified' => self::faker()->boolean(),
-            'roles' => "['ROLE_USER']",
+            'roles' => ['ROLE_USER', "ROLE_PRESTATAIRE"],
             'password' => self::faker()->password(),
-            'address' => self::faker()->address(),
-            'address_num' => self::faker()->buildingNumber(),
             'inscription' => self::faker()->dateTime(),
-            'type_utilisateur' => self::faker()->random_int(0,1),
-            'nb_essais_infructueux' => self::faker()->random_int(0,2),
+            'type_utilisateur' => self::faker()->numberBetween(1,3),
+            'nb_essais_infructueux' => self::faker()->numberBetween(0, 2),
             'banni' => self::faker()->boolean(),
             'inscript_confirm' => self::faker()->boolean(),
-            'localite_id' => self::faker()->random_int(0,10),
-            'code_postal_id' => self::faker()->random_int(0,10),
-            'commune_id' => self::faker()->random_int(0,10),
-            'price' => self::faker()->random_int(0,10),
-            'img' => self::faker()->imageUrl(),
+            'price' => self::faker()->boolean(),
         ];
     }
 

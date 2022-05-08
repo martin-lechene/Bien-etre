@@ -9,7 +9,7 @@ fos_elastica:
                 name: ~
                 name_city: ~
                 num_postal: ~
-                categorys: ~
+                category_service: ~
             persistence:
                 driver: orm
                 model: App\Entity\Prestataires

@@ -74,21 +74,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $inscriptConfirm = 0;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Localite::class, inversedBy="users")
-     */
-    private $localite;
+   
 
-    /**
-     * @ORM\ManyToOne(targetEntity=CodePostal::class, inversedBy="users")
-     */
-    private $codePostal;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Commune::class, inversedBy="users")
-     */
-    private $commune;
-
+   
+   
     /**
      * @ORM\Column(type="boolean")
      */
@@ -213,30 +202,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getAdresseNum(): ?int
-    {
-        return $this->adresseNum;
-    }
-
-    public function setAdresseNum(?int $adresseNum): self
-    {
-        $this->adresseNum = $adresseNum;
-
-        return $this;
-    }
-
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
     public function getInscription(): ?\DateTimeInterface
     {
         return $this->inscription;
@@ -297,42 +262,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLocalite(): ?Localite
-    {
-        return $this->localite;
-    }
-
-    public function setLocalite(?Localite $localite): self
-    {
-        $this->localite = $localite;
-
-        return $this;
-    }
-
-    public function getCodePostal(): ?CodePostal
-    {
-        return $this->codePostal;
-    }
-
-    public function setCodePostal(?CodePostal $codePostal): self
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
-    public function getCommune(): ?Commune
-    {
-        return $this->commune;
-    }
-
-    public function setCommune(?Commune $commune): self
-    {
-        $this->commune = $commune;
-
-        return $this;
-    }
-
+   
     public function isVerified(): bool
     {
         return $this->isVerified;

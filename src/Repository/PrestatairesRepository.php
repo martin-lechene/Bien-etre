@@ -5,30 +5,136 @@ namespace App\Repository;
 use App\Entity\Prestataires;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+    use Doctrine\Bundle\DoctrineBundle\Repository\PrestatairesEntityRepository;
 /**
  * @method Prestataires|null find($id, $lockMode = null, $lockVersion = null)
  * @method Prestataires|null findOneBy(array $criteria, array $orderBy = null)
  * @method Prestataires[]    findAll()
  * @method Prestataires[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PrestatairesRepository extends PretatairesEntityRepository
+class PrestatairesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Prestataires::class);
+
+    }
+    
+    public function findPrestatairesByName(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.name', ':query'),
+                    ),
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
     }
 
+    public function findPrestatairesByCity(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.nameCity', ':query'),
+                        
+                    ),
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findPrestatairesByPostal(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.numPostal', ':query'),
+                    ),
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findPrestatairesByCategory(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.categoryService', ':query'),
+                    ),
+                    // $qb->expr()->isNotNull('p.created_at')
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    
+    public function findByQuery(string $query_name, string $query_city, string $query_postal, string $query_category)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.name', ':query'),
+                        $qb->expr()->like('p.nameCity', ':query'),
+                        $qb->expr()->like('p.numPostal', ':query'),
+                        $qb->expr()->like('p.categoryService', ':query'),
+                    ),
+                    // $qb->expr()->isNotNull('p.created_at')
+                )
+            )
+            ->setParameter('query', '%' . $query_name . '%')
+            ->setParameter('query', '%' . $query_city . '%')
+            ->setParameter('query', '%' . $query_postal . '%')
+            ->setParameter('query', '%' . $query_category . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    
     // /**
     //  * @return Prestataires[] Returns an array of Prestataires objects
     //  */
     public function findLatest()
     {
         return $this->createQueryBuilder('p')
+            ->setMaxResults(4)
             ->getQuery()
             ->getResult()
         ;
     }
+
     /**
      * @return Prestataires[] Returns an array of Prestataires objects
      */
@@ -65,4 +171,17 @@ class PrestatairesRepository extends PretatairesEntityRepository
             ->getResult()
         ;
     }
+    
+
+    /*
+    public function findOneBySomeField($value): ?Prestataires
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    */
 }

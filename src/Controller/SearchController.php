@@ -11,6 +11,7 @@ use App\Entity\Categorys;
 use App\Entity\Prestataires;
 use Doctrine\ORM\EntityRepository;
 use App\Entity\CategorieDeServices;
+use App\Entity\Prestataire;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PrestatairesRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -134,45 +135,33 @@ class SearchController extends AbstractController
                     'placeholder' => 'Choisissez un prestataire',
                 ],
             ])
-            ->add('nameCity', EntityType::class, [
-                'class' => Prestataires::class,
-                'label' => "Nom de la ville",
+            ->add('nameCity', TextType::class, [
+                'label' => 'Ville',
                 'label_attr' => ['class' => 'text-info mt-3'],
-                'choice_label' => 'nameCity',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.nameCity', 'ASC')->groupBy('u.nameCity');
-                },
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Entrez une ville'
+                    'placeholder' => 'Choisissez une ville',
                 ],
-                'required' => false,
-                ])
-            ->add('numPostal', EntityType::class, [
-                'class' => Prestataires::class,
+            ])
+            ->add('numPostal', TextType::class, [
                 'label' => "Code postal",
-                'label_attr' => ['class' => 'text-info'],
-                'choice_label' => 'numPostal',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.numPostal', 'ASC');
-                },
+                'label_attr' => ['class' => 'text-info mt-3'],
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Entrez un code postal'
                 ],
                 'required' => false,
                 ])
-            ->add('categoryService', EntityType::class, [
-                'class' => Categorys::class,
+            ->add('categoryService', TextType::class, [
+                // 'class' => Prestataires::class,
                 'label' => "Catégorie",
-                'label_attr' => ['class' => 'text-info'],
-                'choice_label' => 'name',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.name', 'ASC')->groupBy('u.name');
-                },
+                'label_attr' => ['class' => 'text-info mt-3'],
+                // 'choice_label' => 'categoryService',
+                // 'query_builder' => function (EntityRepository $er) {
+                    // return $er->createQueryBuilder('u')
+                        // ->orderBy('u.categoryService', 'ASC')->groupBy('u.categoryService');
+                // },
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Choisissez une catégorie'
@@ -180,8 +169,9 @@ class SearchController extends AbstractController
                 'required' => false,
                 ])
             ->add('recherche', SubmitType::class, [
+                
                 'attr' => [
-                    'class' => 'btn btn-info text-center mt-3'
+                    'class' => 'btn btn-info mt-3'
                 ]
             ])
             ->getForm();
@@ -223,11 +213,6 @@ class SearchController extends AbstractController
 
         $query = $request->request->get('form','query');
 
-        $query['name'] = $query['name'] ?? "";
-        $query['nameCity'] = $query['nameCity'] ?? "";
-        $query['numPostal'] = $query['numPostal'] ?? "";
-        $query['categoryService'] = $query['categoryService'] ?? "";
-
         if($query) {
             // $prestataires = $repo->findByQuery($query['name'], $query['nameCity'], $query['numPostal'], $query['categoryService']);
             if(!empty($query['name'])) {
@@ -236,7 +221,7 @@ class SearchController extends AbstractController
             if(!empty($query['numPostal'])) {
                 $prestataires = $repo->findPrestatairesByPostal($query['numPostal']);
             }
-            if(!empty($query['nameCity'])) {
+                if(!empty($query['nameCity'])) {
                 $prestataires = $repo->findPrestatairesByCity($query['nameCity']);    
             }
             if(!empty($query['categoryService'])) {

@@ -6,7 +6,6 @@ use App\Entity\Categorys;
 use App\Entity\Sliders;
 use App\Entity\Prestataires;
 use App\Entity\Services;
-use App\Entity\Images;
 use App\Entity\User;
 use App\Form\CategorysType;
 use App\Repository\CategorysRepository;
