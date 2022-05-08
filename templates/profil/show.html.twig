@@ -87,7 +87,7 @@
                             {% if role == 'ROLE_USER' %}
                                 <span class="bg-dark text-white p-2 mb-1">Utilisateur</span>
                             {% endif %}
-                            {% elseif role == 'ROLE_INTERNAUTE' %}
+                            {% if role == 'ROLE_INTERNAUTE' %}
                                 <span class="bg-dark text-white p-2 mb-1">Internaute</span>
                             {% endif %}
                         {% endfor %}

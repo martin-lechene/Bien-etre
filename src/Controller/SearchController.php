@@ -30,10 +30,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SearchController extends AbstractController
 {
     /**
-     * @Route("/searchfull", name="search")
+     * @Route("/search", name="search")
+     * @param Request $request
      * 
      */
-    public function index(EntityManagerInterface $entitymanager): Response
+    public function index(Request $request, PrestatairesRepository $repo, EntityManagerInterface $entitymanager): Response
     {
         $repository = $entitymanager->getRepository(CategorieDeServices::class);
         $categories = $repository->findAll();
@@ -60,8 +61,24 @@ class SearchController extends AbstractController
         $repository = $entitymanager->getRepository(Categorys::class);
         $categorys = $repository->findLatest();
 
-        $form = $this->createFormBuilder(SearchType::class);
-     
+        $query = $request->request->get('form','query');
+
+        if($query) {
+            // $prestataires = $repo->findByQuery($query['name'], $query['nameCity'], $query['numPostal'], $query['categoryService']);
+            if(!empty($query['name'])) {
+                $prestataires = $repo->findPrestatairesByName($query['name']);
+            }
+            if(!empty($query['numPostal'])) {
+                $prestataires = $repo->findPrestatairesByPostal($query['numPostal']);
+            }
+                if(!empty($query['nameCity'])) {
+                $prestataires = $repo->findPrestatairesByCity($query['nameCity']);    
+            }
+            if(!empty($query['categoryService'])) {
+                $prestataires = $repo->findPrestatairesByCategory($query['categoryService']);
+            }
+            
+        }
         return $this->render('search/index.html.twig', [
             "categorys" => $categorys,
             "sliders" => $sliders,
@@ -69,8 +86,6 @@ class SearchController extends AbstractController
             "prestataires" => $prestataires,
             "user" => $user,
             "categorieEnAvant" => $enAvant,
-            "form" => $form->getForm()->createView(),
-            //'q' => '$q', 
         ]);
     }
 
