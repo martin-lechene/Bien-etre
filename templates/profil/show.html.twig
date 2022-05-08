@@ -5,11 +5,12 @@
 {% block body %}
     {% if app.user %}
         {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and app.user.id ) %}
-            <h3 class='text-center text-info'>{{ user.username }}</h3>
+            {% if is_granted('ROLE_ADMIN') %}
             <div class='text-dark bg-white text-center d-flex p-1'>   
                 <a class=' mr-2 btn btn-info disabled' href="{{ path('profil_edit', {'id': user.id}) }}">Modifier</a>
                 {{ include('profil/_delete_form.html.twig') }}
             </div>
+            {% endif %}
             <div class="card">
                 <div class="card-header">
                     <h3 class='text-center text-info'>{{ user.username }}</h3>

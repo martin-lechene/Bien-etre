@@ -16,7 +16,7 @@
             {% include 'components/head/header.html.twig' %}
         </header>
         {% endblock %} 
-        {% if app.environment == "dev" %}
+        {% if app.environment == "dev" and is_granted("ROLE_ADMIN") %}
             {% if not app.user %}
             <div class="alert alert-warning p-3"><b>Attention :</b> Vous n'êtes pas connecter actuellement !</div>
             {% else %}
@@ -39,7 +39,7 @@
             {% endif %}
         {% else %}
             {% if app.user %}
-            <div class="alert alert-info"><b>Attention !</b> Vous n'êtes plus dans l'environement de dev !</div>
+            <div class="alert alert-info"><b>Attention !</b> Vous n'êtes plus dans l'environement de dev ou vous n'êtes plus administrateur!</div>
             {% endif %}
         {% endif %}
         <main class="mx-auto container">

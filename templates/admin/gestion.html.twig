@@ -4,7 +4,7 @@
 {% block title %}Gestion de vos prestations{% endblock %}
 
 {% block main %}
-{% if not is_granted("ROLE_ADMIN") %}
+{% if is_granted("ROLE_ADMIN") %}
     <div class="alert alert-primary"><b>Attention !</b> Cette page est dédier aux prestataires et vous êtes conntecter en tant qu'administrateur.</div>
 {% elseif is_granted("ROLE_PRESTATAIRE") %}
     <div class="alert alert-success"><b>Success ! </b>Vous êtes bien un prestataire, vous pouvez gérez l'ensemble de service via cette nouvelle interface, n'oublier pas de lire notre <a href="/faq">F.A.Q</a>. Pour plus d'information ! Ou contactez-nous <a href="/contact">ICI</a></div>

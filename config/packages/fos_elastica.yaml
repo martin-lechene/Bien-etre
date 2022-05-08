@@ -1,6 +1,16 @@
-# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/doc/setup.md
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/setup.md
+# config/packages/fos_elastica.yaml
 fos_elastica:
     clients:
         default: { url: '%env(ELASTICSEARCH_URL)%' }
     indexes:
-        app: null
+        prestataires:
+            properties:
+                name: ~
+                name_city: ~
+                num_postal: ~
+                categorys: ~
+            persistence:
+                driver: orm
+                model: App\Entity\Prestataires
+        

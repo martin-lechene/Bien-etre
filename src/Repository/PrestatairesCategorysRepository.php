@@ -19,6 +19,7 @@ class PrestatairesCategorysRepository extends ServiceEntityRepository
         parent::__construct($registry, PrestatairesCategorys::class);
     }
 
+   
     // /**
     //  * @return PrestatairesCategorys[] Returns an array of PrestatairesCategorys objects
     //  */

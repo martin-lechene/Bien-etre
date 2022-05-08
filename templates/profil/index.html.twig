@@ -9,10 +9,12 @@
 {% block body %}
 
 {% if app.user %}
-<div class="d-flex justify-content-between">
-    <a class="btn btn-warning" href="/profil/{{app.user.id}}/edit">Modifier</a>
-    {{ include('profil/_delete_form.html.twig') }}
-</div>
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-warning" href="/profil/{{app.user.id}}/edit">Modifier</a>
+        {{ include('profil/_delete_form.html.twig') }}
+    </div>
+    {% endif %}
 <div class='row p-3 m-1'>
     <div class='col-12 p-2'>
         <div class="card text-center">  

@@ -1,74 +1,11 @@
-{% extends 'base.html.twig' %}
-{% block title %} Rechercher d'un prestataire{% endblock %}
 {% block body %}
 
-
-{{ form(search_form) }}
-
- {#{ 
-    render(controller(
-        'App\\Controller\\SearchController::searchBar'
-    )) 
-}#} 
-
-<!-- <h3 class='text-center text-white p-2'>Rechercher </h3>
-<section class="search-sec ">
-    <form action="{{ path('search') }}" method="post" novalidate="novalidate">
-        <div class="row">
-            <div class="input-group p-1 col-6">
-                    <div class="form-group">
-                        <label>Nom du préstataires</label>
-                        <input type='text' name='name' id="name" class="form-control" placeholder="ex : Koif Koif">
-                    </div>
-            </div>
-            <div class="input-group p-1 col-6">
-                    <div class="form-group">
-                        <label for="">Code Postal</label>
-                        <input type="number" name="codePostal" id="codePostal" class="form-control" placeholder="ex : 4031">
-                    </div>
-            </div>
-            <div class="input-group p-1 col-6">
-                    <div class="form-group">
-                        <label for="">Ville</label>
-                        <input type="text" name="city" id="city" class="form-control" placeholder="ex : Liège">
-                    </div>
-            </div>
-            <div class="input-group p-1 col-6">
-                    <div class="form-group">
-                        <label>Catégories</label>
-                        <select name='category' id="category_select_search" class="form-select form-control" aria-label="-- No select --">
-                            <option class="text-dark" value='null'>Choisir une categories</option>
-                            {% for category in categorys %}
-                            <option class="text-dark" value='{{category.id}}'>{{category.name}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-            </div>
-            <div class="text-center p-1 col-12">
-                    <a href='search' class="btn btn-info text-info"><i class='fas fa-search mr-3'></i> Rechercher</a>
-            </div>
-        </div>
-    </form>
-    <div class='p-5 row'>
-        {% for prestataire in prestataires %}
-            <div class='col-4 mb-4'>
-                <div class="card text-center p-2">
-                    <img class="card-img-top" src="{{prestataire.urlLogo}}" alt="Desc img providers">
-                        <div class="card-body">
-                                <h5 class="card-title"><a class="text-info" href='prestataires/{{ prestataire.id }}'>{{ prestataire.name }}</a></h5>
-                                <p class="card-text text-white text-muted">{{ prestataire.descShort }}</p>
-                                <a href="prestataires/{{ prestataire.id }}" class="btn btn-info">Voir</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-                </div>
-            </div>
-        </div>
-</section> -->
+<h2 class="text-center text-info">Recherche</h2>
+{{ render(controller(
+    'App\\Controller\\SearchController::searchBar2'
+)) }}
 {% endblock %}
 {% block javascripts %}
-{{ parent() }}
 <script>
     $(document).ready(function(){
         $("select").formSelect();
