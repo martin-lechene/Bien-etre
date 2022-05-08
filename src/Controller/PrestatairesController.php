@@ -157,7 +157,6 @@ class PrestatairesController extends AbstractController
             "services" => $services,
             "prestataires" => $prestataires,
             "user" => $user, 
-            "categorieEnAvant" => $enAvant,
             'form' => $form->createView()
         ]);
     }

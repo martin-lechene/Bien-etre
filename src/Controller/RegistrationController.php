@@ -89,7 +89,6 @@ class RegistrationController extends AbstractController
             "services" => $services,
             "prestataires" => $prestataires,
             "user" => $user,
-            "categorieEnAvant" => $enAvant,
             'registrationForm' => $form->createView(),
         ]);
     }

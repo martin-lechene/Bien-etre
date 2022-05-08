@@ -50,7 +50,6 @@ class SecurityController extends AbstractController
             "sliders" => $sliders,
             "services" => $services,
             "prestataires" => $prestataires,
-            "categorieEnAvant" => $enAvant,
             'last_username' => $lastUsername,
             "error" => $error
         ]);
