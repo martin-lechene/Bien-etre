@@ -39,18 +39,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $adresseNum;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $adresse;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $inscription;
 
@@ -60,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $typeUtilisateur;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $nbEssaisInfructueux = 0;
 
@@ -84,12 +75,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $img;
 
@@ -101,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Prestataires::class, mappedBy="User")
+     * @ORM\OneToMany(targetEntity=Prestataires::class, mappedBy="user")
      */
     private $prestataires;
 

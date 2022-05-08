@@ -30,7 +30,7 @@ class Categorys
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $url_img;
 
@@ -53,6 +53,11 @@ class Categorys
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="categorys")
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $enAvantenAvant;
 
 
     public function __construct()
@@ -188,6 +193,18 @@ class Categorys
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEnAvantenAvant(): ?int
+    {
+        return $this->enAvantenAvant;
+    }
+
+    public function setEnAvantenAvant(?int $enAvantenAvant): self
+    {
+        $this->enAvantenAvant = $enAvantenAvant;
 
         return $this;
     }

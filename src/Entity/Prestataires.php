@@ -30,12 +30,12 @@ class Prestataires
     private $website;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=20)
      */
     private $number_phone;
 
     /**
-     * @ORM\Column(type="string", length=25, nullable=true)
+     * @ORM\Column(type="string", length=25)
      */
     private $number_tva;
 
@@ -76,7 +76,7 @@ class Prestataires
     private $categoryService;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $numStreet;
 
