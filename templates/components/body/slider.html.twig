@@ -1,6 +1,6 @@
 <div class="card">
   {% for slider in sliders %}
-  {% if slider.enAvant %}
+  {% if slider %}
     <h6 class="card-header text-center text-white p-3 bg-info">Catégories du mois</h6>
     <a href='/categorys/{{ slider.id }}'><img class="card-body" height="200px" src="{{ slider.urlImg }}" alt="{{ slider.descript }}"></a>
     <h4 class="text-info text-center">{{ slider.name }}</h4>
