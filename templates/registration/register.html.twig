@@ -8,20 +8,21 @@
     {% endfor %}
     {% if app.user %}
     <div class="alert alert-warning">Vous êtes déjà inscrit et connecter !</div>
+
     {% else %}
-    <h2 class="text-white">Inscription</h2>
+    <h1 class="h3 mb-3 text-white text-center">S'inscrire</h1>
     <div class="p-4 text-white text-center">
         {{ form_start(registrationForm) }}
-            <div class="mb-2 d-flex justify-content-center">
+            <div class="mb-2">
                 {{ form_row(registrationForm.email) }}
             </div>
-            <div class="mb-2 d-flex justify-content-center">
+            <div class="mb-2">
                 {{ form_row(registrationForm.plainPassword) }}
             </div>
-            <div class="mb-2 d-flex justify-content-center">
+            <div class="mb-2">
                 {{ form_row(registrationForm.roles) }}
             </div>
-            <div class="mb-2 d-flex justify-content-center">
+            <div class="mb-2">
                 {{ form_row(registrationForm.agreeTerms) }}
             </div>
             <button type="submit" class="btn btn-outline-info text-center">S'inscrire</button>

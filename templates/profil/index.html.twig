@@ -9,24 +9,37 @@
 {% block body %}
 
 {% if app.user %}
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN')  %}
     <div class="d-flex justify-content-between">
         <a class="btn btn-warning" href="/profil/{{app.user.id}}/edit">Modifier</a>
         {{ include('profil/_delete_form.html.twig') }}
     </div>
     {% endif %}
 <div class='row p-3 m-1'>
-    <div class='col-12 p-2'>
+    <div class='col-md-2 '>
+        <img class="img-circle img-fluid" src="{{ app.user.img }}" alt="{{ app.user.email }} image of profil">
+    </div>
+    <div class='col-10 p-2'>
         <div class="card text-center">  
             <h3 class='text-center text-info p-2 '>{{ app.user.email }}</h3>
-            <img class="card-img-top" src="{{ app.user.img }}" alt="{{ app.user.email }} image of profil">
-            <div class="card-body">
+            <div class="">
                 <h5 class="card-title bg-dark p-1"><a class='text-white' href='profil/{{ app.user.id }}'>{{ app.user.email }}</a></h5>
                 Roles : 
                     <p class="card ">
-                        {% for role in app.user.roles %}    
-                            {{ role }} <br> 
-                        {% endfor %}    
+                        {% for role in app.user.roles %}
+                        {% if role == 'ROLE_PRESTATAIRE' %}
+                        <span class="bg-dark text-white p-2 mb-1">Prestataire</span>
+                        {% endif %}
+                        {% if role == 'ROLE_ADMIN' %}
+                            <span class="bg-dark text-white p-2 mb-1">Administrateur</span>
+                        {% endif %}
+                        {% if role == 'ROLE_USER' %}
+                            <span class="bg-dark text-white p-2 mb-1">Utilisateur</span>
+                        {% endif %}
+                        {% if role == 'ROLE_INTERNAUTE' %}
+                            <span class="bg-dark text-white p-2 mb-1">Internaute</span>
+                        {% endif %}
+                    {% endfor %}
                     </p>
                 Password : <p class="card ">{{ app.user.password }}</p>
                 Nombre d'essai infructueux : <p class="card ">{{ app.user.nbEssaisInfructueux }}</p>
@@ -47,42 +60,37 @@
                     {% endif %}
                 </p>
                 Date d'inscription<p class="card ">{{ app.user.inscription|date }}</p>
-                Address complète <br>
-                    <adresse class='card bg-dark text-white'>
-                        {% if app.user.adresse %}
-                            {{ app.user.adresseNum }}, {{ app.user.adresse }} <br>
-                        {% else %}
-                            <b class="text-danger">Aucune addresse n'a été indiquée.</b>
-                        {% endif %}
-                   </address>
+                
             </div>
-            {#
-            <div class="card-body">
-                <h4>Catégories crée</h4>
-                {% for category in categorys %}
-                    {% if app.user %}   
-                        {% if category.userId == app.user.id %}
-                            {{ category.name }}<br>
+            
+            <div class="card p-3">
+                {% if prestataires %}
+                    <h4 class="text-info text-center">Prestation crée</h4>
+                    {% for prestataire in prestataires %}
+                        {% if app.user %}   
+                            {% if prestataire.user.id == app.user.id %}
+                            <div class="p-2 bg-dark">
+                               <span class="h4 text-info"> {{ prestataire.name }}</span>  
+                               | <a href="/prestataires/{{ prestataire.id }}" ><i class="fas fa-eye text-info"></i></a> <span class="h4 text-info"> \\</span> 
+                               <form class='d-inline' method="post" action="{{ path('profil_delete', {'id': app.user.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
+                                <button class="text-danger bg-transparent border-0"><i class="fas fa-trash"></i></button>
+                                </form>
+                                <span class="h4 text-info"> \\</span> <a href="/prestataires/{{ prestataire.id}}/edit" ><i class="fas fa-edit text-warning"></i></a><br>                            
+                            </div>
+                            {% endif %}
                         {% endif %}
-                   {% endif %}
+                    {% endfor %}
                 {% else %}
                     <b class="text-danger">Aucune catégorie n'a été crée.</b>
-                {% endfor %}
-                <div class="divider"></div>
-                <h4>Service crée</h4>
-                {% for service in services %}
-                {% if app.user %}   
-                {% if service.user.id == app.user.id %}
-                {{ service.name }}<br>
+                    <a class="btn btn-info" href="/prestataire/add"><i class="fas fa-edit"></i></a>
                 {% endif %}
-                {% endif %}
-                {% endfor %}
             </div>
-            #}
+            
     </div>
     {% else %}
     <div class="alert alert-danger text-center">
-        <h3>Vous devez êtes connecter pour accéder à cette page !</h3>
+        <h3 class="text-center text-danger">Vous devez êtes connecter pour accéder à cette page !</h3>
     </div>
     {% endif %}
 {% endblock %}

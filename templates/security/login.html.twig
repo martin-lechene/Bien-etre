@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Connexion à bien-être{% endblock %}
 
 {% block body %}
-<form method="post" class=" text-white text-centersy">
+<form method="post" class=" text-white text-center">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -12,8 +12,9 @@
         <div class="mb-3 text-center">
             <a class='btn btn-danger' href='{{ path("app_logout") }}'><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
         </div>
+        
     {% else %}
-    <h1 class="h3 mb-3 font-weight-normal text-white text-center">Se connecter</h1>
+    <h1 class="h3 mb-3 text-white text-center">Se connecter</h1>
     <label class='text-white' for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label class='text-white' for="inputPassword">Mot de passe</label>
