@@ -36,12 +36,7 @@ class SearchController extends AbstractController
      */
     public function index(Request $request, PrestatairesRepository $repo, EntityManagerInterface $entitymanager): Response
     {
-        $repository = $entitymanager->getRepository(CategorieDeServices::class);
-        $categories = $repository->findAll();
-        $enAvant = $repository->findBy(
-            array('enAvant' => '1')
-        );
-
+       
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
 
@@ -85,7 +80,6 @@ class SearchController extends AbstractController
             "services" => $services,
             "prestataires" => $prestataires,
             "user" => $user,
-            "categorieEnAvant" => $enAvant,
         ]);
     }
 
@@ -97,11 +91,7 @@ class SearchController extends AbstractController
     {
         $prestatairesSearchForm = $this->createFormBuilder(SearchType::class);
 
-        $repository = $entitymanager->getRepository(CategorieDeServices::class);
-        $categories = $repository->findAll();
-        $enAvant = $repository->findBy(
-            array('enAvant' => '1')
-        );
+       
 
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
@@ -131,7 +121,6 @@ class SearchController extends AbstractController
             "services" => $services,
             "prestataires" => $prestataires,
             "user" => $user,
-            "categorieEnAvant" => $enAvant,
             "search_form" => $prestatairesSearchForm->getForm()->createView(),
         ]);
     }
@@ -201,12 +190,7 @@ class SearchController extends AbstractController
      */
     public function handleSearch(Request $request, PrestatairesRepository $repo, EntityManagerInterface $entitymanager)
     {
-        $repository = $entitymanager->getRepository(CategorieDeServices::class);
-        $categories = $repository->findAll();
-        $enAvant = $repository->findBy(
-            array('enAvant' => '1')
-        );
-
+       
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
 
@@ -250,17 +234,12 @@ class SearchController extends AbstractController
             "services" => $services,
             "prestataires" => $prestataires,
             "user" => $user,
-            "categorieEnAvant" => $enAvant,
         ]);
     }
 
     public function searchBar(EntityManagerInterface $entitymanager): Response
     {
-        $repository = $entitymanager->getRepository(CategorieDeServices::class);
-        $categories = $repository->findAll();
-        $enAvant = $repository->findBy(
-            array('enAvant' => '1')
-        );
+      
 
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
@@ -330,7 +309,6 @@ class SearchController extends AbstractController
             "services" => $services,
             "prestataires" => $prestataires,
             "user" => $user,
-            "categorieEnAvant" => $enAvant,
             'form' => $form->createView()
         ]);
     }

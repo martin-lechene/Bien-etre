@@ -61,8 +61,6 @@ class ServicesController extends AbstractController
         $repository = $entitymanager->getRepository(Sliders::class);
         $sliders = $repository->findLatest();
 
-        $repository = $entitymanager->getRepository(Services::class);
-        $services = $repository->findLatest();
 
         return $this->render('services/show.html.twig', [
             "categorys" => $categorys,

@@ -35,11 +35,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        $repository = $entityManager->getRepository(CategorieDeServices::class);
-        $categories = $repository->findAll();
-        $enAvant = $repository->findBy(
-            array('enAvant' => '1')
-        );
+       
 
         $repository = $entityManager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
@@ -53,7 +49,10 @@ class RegistrationController extends AbstractController
 
         $repository = $entityManager->getRepository(Categorys::class);
         $categorys = $repository->findLatest();
+
         $services = $repository->findLatest();
+        
+
         
         // $editForm = $this->createForm(new UserType(), $entity, array('roles' => $this->container->getParameter('security.role_hierarchy.roles')));
 
@@ -93,7 +92,6 @@ class RegistrationController extends AbstractController
             "services" => $services,
             "prestataires" => $prestataires,
             "user" => $user,
-            "categorieEnAvant" => $enAvant,
             'registrationForm' => $form->createView(),
         ]);
     }

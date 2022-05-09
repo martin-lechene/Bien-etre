@@ -23,7 +23,7 @@ class Sliders
     private $EnAvant;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $nanme;
 

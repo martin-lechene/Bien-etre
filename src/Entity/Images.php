@@ -23,7 +23,7 @@ class Images
     private $ordre;
 
     /**
-     * @ORM\Column(type="blob")
+     * @ORM\Column(type="text")
      */
     private $image;
 

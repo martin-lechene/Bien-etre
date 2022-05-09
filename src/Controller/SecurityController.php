@@ -24,11 +24,7 @@ class SecurityController extends AbstractController
         //     return $this->redirectToRoute('profil_index');
         // }
         
-        $repository = $entityManager->getRepository(CategorieDeServices::class);
-        $categories = $repository->findAll();
-        $enAvant = $repository->findBy(
-            array('enAvant' => '1')
-        );
+       
 
         $repository = $entityManager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
@@ -54,7 +50,6 @@ class SecurityController extends AbstractController
             "sliders" => $sliders,
             "services" => $services,
             "prestataires" => $prestataires,
-            "categorieEnAvant" => $enAvant,
             'last_username' => $lastUsername,
             "error" => $error
         ]);

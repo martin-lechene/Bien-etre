@@ -20,11 +20,7 @@ class PrestatairesController extends AbstractController
      */
     public function index(EntityManagerInterface $entitymanager, Request $request): Response
     {
-        $repository = $entitymanager->getRepository(CategorieDeServices::class);
-        $categories = $repository->findAll();
-        $enAvant = $repository->findBy(
-            array('enAvant' => '1')
-        );
+        
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
         
@@ -120,11 +116,7 @@ class PrestatairesController extends AbstractController
 
     public function searchBar(EntityManagerInterface $entitymanager): Response
     {
-        $repository = $entitymanager->getRepository(CategorieDeServices::class);
-        $categories = $repository->findAll();
-        $enAvant = $repository->findBy(
-            array('enAvant' => '1')
-        );
+       
 
         $repository = $entitymanager->getRepository(Prestataires::class);
         $prestataires = $repository->findLatest();
@@ -165,7 +157,6 @@ class PrestatairesController extends AbstractController
             "services" => $services,
             "prestataires" => $prestataires,
             "user" => $user, 
-            "categorieEnAvant" => $enAvant,
             'form' => $form->createView()
         ]);
     }
