@@ -163,15 +163,14 @@ class HomeController extends AbstractController
         $repository = $entitymanager->getRepository(Sliders::class);
         $sliders = $repository->findLatest();
 
-        $repository = $entitymanager->getRepository(User::class);
-        $user = $repository->findLatest();
-
+    
 
         return $this->render('profil/show.html.twig', [
             "prestataires" => $prestataires,
             "categorys" => $categorys,
             "sliders" => $sliders,
             "user" => $user,
+         
         ]);
     }
     /**

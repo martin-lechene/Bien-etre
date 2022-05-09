@@ -49,7 +49,10 @@ class RegistrationController extends AbstractController
 
         $repository = $entityManager->getRepository(Categorys::class);
         $categorys = $repository->findLatest();
+
         $services = $repository->findLatest();
+        
+
         
         // $editForm = $this->createForm(new UserType(), $entity, array('roles' => $this->container->getParameter('security.role_hierarchy.roles')));
 

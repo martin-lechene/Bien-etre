@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {% if app.user %}
+        Profil de {{ app.user.email }}
+    {% else %}
+        Accès refuser !
+    {% endif %}
+{% endblock %}
+{% block body %}
+
+{% if app.user %}
+{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and app.user.id ) %}
+<div class="d-flex justify-content-center">
+    {{ include('profil/_delete_form.html.twig') }}
+</div>
+{% endif %}
+<div class='row p-3 m-1'>
+    <div class='col-12 p-2'>
+        <div class="card text-center">  
+            <h3 class='text-center text-info p-2 '>Modifier mon profil</h3>
+            <img class="card-img-top" src="{{ app.user.img }}" height="200px" alt="{{ app.user.email }} image of profil">
+            <div class="card-body">
+                <h5 class="card-title p-1"><a class='text-white' href='profil/{{ app.user.id }}'>{{ app.user.email }}</a></h5>
+                
+            Rôles : 
+            {% for role in app.user.roles %}  
+                {% if role == 'ROLE_PRESTATAIRE' %}
+                <p class="card ">
+                    <span class="bg-dark text-white p-2 mb-1">Prestataire</span>
+                </p>
+                {% elseif not role == 'ROLE_ADMIN' %}
+                <p class="card ">
+                    <span class="bg-dark text-white p-2 mb-1">Administrateur</span>
+                </p>
+                {% elseif not role == 'ROLE_USER' %}
+                <p class="card ">
+                    <span class="bg-dark text-white p-2 mb-1">Utilisateur</span>
+                </p>
+                {% elseif not role == 'ROLE_INTERNAUTE' %}
+                <p class="card ">
+                    <span class="bg-dark text-white p-2 mb-1">Internaute</span>
+                </p>
+                {% endif %}
+            {% endfor %}    
+                {% if is_granted('ROLE_ADMIN') %}
+                    Password : <p class="card ">{{ app.user.password }}</p>
+                Nombre d'essai infructueux : <p class="card ">{{ app.user.nbEssaisInfructueux }}</p>
+                Est-t'il vérifier ? 
+                <p class="card">
+                    {% if app.user.isVerified == 0 %}
+                        <b class="text-danger">Ce compte n'a pas été activer par l'utilisateur.</b>
+                    {% else %}
+                        <b class="text-success">Ce compte à été activer.</b>
+                    {% endif %}
+                </p>
+                Est-il banni ?
+                <p class="card ">
+                    {% if app.user.banni == 0 %}
+                        <b class="text-success">Ce compte n'est pas banni.</b>
+                    {% else %}
+                        <b class="text-danger">Ce compte à été banni.</b>
+                    {% endif %}
+                </p>
+                {% endif %}
+                Date d'inscription<p class="card bg-dark text-white">{{ app.user.inscription|date }}</p>
+            </div>
+            <div class="card-body">
+                <h3 class="h3 text-info">Listes des prestations</h3>
+            {% if is_granted('ROLE_ADMIN') %}
+            {% for prestataire in prestataires %}
+                {% if not prestataire.user.id == app.user.id %}
+                        <div class="card bg-dark text-info p-2 mb-3 ">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <img class="card-img-top" src="{{ prestataire.urlLogo }}" height="200px" alt="{{ prestataire.name }} image of profil">
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <p class="text-info p-2 mb-1">Nom : {{ prestataire.name }}</p>
+                                    <p class="text-info p-2 mb-1">Téléphone : {{ prestataire.numberPhone }}</p>
+                                    <p class="text-info p-2 mb-1">Adresse :{{ prestataire.numStreet }} {{ prestataire.namesteet }}</p>
+                                    <p class="text-info p-2 mb-1">Code postal : {{ prestataire.numPostal }}</p>
+                                    <p class="text-info p-2 mb-1">Ville : {{ prestataire.nameCity }}</p>
+                                    <p class="text-info p-2 mb-1">Type de prestation : {{ prestataire.categoryService }}</p>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-center">
+                                        <a href="prestataire/{{ prestataire.id }}" class="btn btn-info mr-2">Voir</a>
+                                        <a href="prestataire/{{ prestataire.id }}/edit" class="btn btn-warning mr-2">Modifier</a>
+                                        <a href="prestataire/{{ prestataire.id }}/delete" class="btn btn-danger">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+        {% if is_granted('ROLE_INTERNAUTE') %}
+        <div class="card bg-dark text-info p-2 mb-3 ">
+            <code> Vous n'avez pas cette option en tant qu'internaute !</code>
+        </div>
+        {% elseif is_granted('ROLE_PRESTATAIRE') %}
+        <div class="card bg-dark text-info p-2 mb-3 ">
+            <code>Vous n'avez pas crée de prestation !</code>
+        </div>
+        {% else %}
+        <div class="card bg-dark text-info p-2 mb-3 ">
+            <code>Il y a une erreur dans les requêtes des cards </code>
+        </div>
+        {% endif %}
+    {% endif %}
+
+            </div>
+            <a href="/prestataires/new" class="btn btn-info">Ajouter une prestataire</a>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center">
+        <h3>Vous devez êtes connecter pour accéder à cette page !</h3>
+    </div>
+    {% endif %}
+{% endblock %}

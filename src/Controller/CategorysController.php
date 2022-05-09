@@ -63,6 +63,10 @@ class CategorysController extends AbstractController
         $repository = $entitymanager->getRepository(Services::class);
         $services = $repository->findLatest();
 
+        
+        $repository = $entitymanager->getRepository(User::class);
+        $user= $repository->findLatest(); 
+
         $category = new Categorys();
         $form = $this->createForm(CategorysType::class, $category);
         $form->handleRequest($request);
@@ -79,6 +83,7 @@ class CategorysController extends AbstractController
             "categorys" => $categorys,
             "prestataires" => $prestataires,
             "sliders" => $sliders,
+            "user" => $user,
             "services" => $services,
             'form' => $form,
         ]);
